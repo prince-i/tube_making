@@ -5,9 +5,9 @@
        $username = trim($_POST['userID']);
        $pass = trim($_POST['userPass']);
        if(empty($username)){
-           echo '<b class="red-text"><center>Please enter User ID!</center></b>';
+           echo '<b class="red-text"><center>PLEASE ENTER USER ID</center></b>';
        }elseif(empty($pass)){
-            echo '<b class="red-text"><center>Please enter User Password!</center></b>';
+            echo '<b class="red-text"><center>PLEASE ENTER PASSWORD</center></b>';
        }else{
         //    CHECK IF EXISTS
         $checkQuery = "SELECT id,user_type FROM tm_user WHERE userid ='$username' AND password = '$pass'";
@@ -27,10 +27,14 @@
                 header('location: Page/admin.php');
             }
         }else{
-            echo 'invalid';
+            echo '<center class="red-text" style="font-weight:bold;">WRONG USERNAME/PASSWORD!</center>';
         }
        }
     }
 
-
+    if(isset($_POST['logout'])){
+        session_unset();
+        session_destroy();
+        header('location: ../index.php');
+    }
 ?>

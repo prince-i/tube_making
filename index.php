@@ -22,12 +22,12 @@
                 </div>
                 <!-- ID -->
                 <div class="col s12 input-field">
-                    <input type="text" name="userID">
+                    <input type="text" name="userID" autocomplete="OFF">
                         <label for="">UserID</label>
                 </div>
                 <!-- PASS -->
                 <div class="col s12 input-field">
-                    <input type="password" name="userPass">
+                    <input type="password" name="userPass" autocomplete="OFF">
                         <label for="">Password</label>
                 </div>
                 <!-- BUTTON -->
