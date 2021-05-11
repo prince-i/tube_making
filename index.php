@@ -27,32 +27,20 @@
                 </div>
                 <!-- PASS -->
                 <div class="col s12 input-field">
-                    <input type="password" name="userID">
+                    <input type="password" name="userPass">
                         <label for="">Password</label>
                 </div>
                 <!-- BUTTON -->
                 <div class="col s12 input-field">
                     <input type="submit" name="login_btn" value="Login" class="btn-large blue col s12">
                 </div>
+                <!-- PHP -->
+                <div class="col s12 input-field">
+                    <?php require 'process/login.php';?>
+                </div>
             </div>
         </form>
     </div>
-
-    <!-- <div class="row">
-        <div class="col s12">
-            <h4 class="center">TUBEMAKING KANBAN SYSTEM</h4>
-        </div>
-        <div class="row col s12">
-            <div class="center" >
-                <form action="" method="post">
-                    <div class="col s12 input-field">
-                        <input type="text" name="username"><label for="">UserID</label>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div> -->
-
     <script src="Component/jquery.min.js"></script>
     <script src="materialize/js/materialize.min.js"></script>
     <script>
