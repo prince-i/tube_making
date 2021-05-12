@@ -18,6 +18,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="">Master List</a></li>
         <li><a href="">History</a></li>
         <li><a href=" ">Logout</a></li>
       </ul>
@@ -61,21 +62,47 @@
 
 
 
-    <script src="../Component/jquery.min.js"></script>
-    <script src="../materialize/js/materialize.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $('.modal').modal({
-                inDuration: 300,
-                outDuration:100
-            });
-        });
+<script src="../Component/jquery.min.js"></script>
+<script src="../materialize/js/materialize.min.js"></script>
+<script>
+$(document).ready(function(){
+    $('.modal').modal({
+        inDuration: 300,
+        outDuration:100
+    });
+});
+// VIEW MODAL HACK METHOD
+const create_plan =()=>{
+    $('#render_modal').load('../Forms/modal-new-plan.php');
+}
 
-        const create_plan =()=>{
-            $('#render_modal').load('../Forms/modal-new-plan.php');
+const detect_part_info =()=>{
+    var parts_code = document.querySelector('#partscode_plan').value;
+    // console.log(parts_code);
+    $.ajax({
+        url: '../process/controller.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'fetch_details_plan',
+            parts_code:parts_code
+        },success:function(response){
+            console.log(response);
+            if(response != ''){
+                var str = response.split('~!~');
+                document.querySelector('#partsname_plan').value = str[0];
+                document.querySelector('#length_plan').value = str[1];
+            }else{
+                document.querySelector('#partsname_plan').value = '';
+                document.querySelector('#length_plan').value = '';
+                M.toast({
+                    html:'INVALID PARTS CODE, PLEASE VERIFY',
+                    classes:'red rounded'
+                });
+            }
         }
-
-       
+    });
+}
     </script>
 </body>
 </html>

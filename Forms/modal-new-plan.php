@@ -1,23 +1,23 @@
 <p class="center flow-text" style="margin-top:-2%;">CREATE PLAN</p>
 <div class="col s12">
-    <div class="input-field col l4 m4 s12">
-        <input type="text" id="partsname">
-        <label for="partsname">Parts Name</label>
-    </div>
     <!-- PARTSCODE -->
     <div class="input-field col l4 m4 s12">
-        <input type="text" id="partscode">
-        <label for="partscode">Parts Code</label>
+        <input type="text" id="partscode_plan" onchange="detect_part_info()" placeholder="Parts Code" autocomplete="OFF">
     </div>
+
+    <!-- PARTSNAME -->
+    <div class="input-field col l4 m4 s12">
+        <input type="text" id="partsname_plan" placeholder="Parts Name" autocomplete="OFF" disabled>
+    </div>
+
     <!-- LENGTH -->
     <div class="input-field col l4 m4 s12">
-        <input type="number" id="length" min="0">
-        <label for="length">Length</label>
+        <input type="number" id="length_plan" min="0" placeholder="Length" autocomplete="OFF" disabled>
     </div>
 
     <!-- SHIFT -->
     <div class="input-field col l4 m4 s12">
-        <select name="" id="shift" class="browser-default z-depth-1">
+        <select name="" id="shift_plan" class="browser-default z-depth-1">
             <option value="">--SHIFT--</option>
             <option value="A">A</option>
             <option value="B">B</option>
@@ -25,7 +25,7 @@
     </div>
     <!-- MACHINE NUMBER -->
     <div class="input-field col l4 m4 s12">
-        <select name="" id="machine_num" class="browser-default z-depth-1" >
+        <select name="" id="machine_num_plan" class="browser-default z-depth-1" >
             <option value="">--MACHINE NUMBER--</option>
             <?php
                 for($x=1;$x<=4;$x++){
@@ -38,7 +38,7 @@
     </div>
     <!-- SETUP# -->
     <div class="input-field col l4 m4 s12">
-        <select name="" id="setup_num" class="browser-default z-depth-1">
+        <select name="" id="setup_num_plan" class="browser-default z-depth-1">
             <option value="">--SETUP NUMBER--</option>
             <?php
                 for($x=1;$x<=3;$x++){
@@ -51,8 +51,7 @@
     </div>
     <!-- PLAN -->
     <div class="input-field col l4 m4 s12">
-        <input type="number" id="planQty" min="0">
-        <label for="planQty">Plan</label>
+        <input type="number" id="planQty" min="0" placeholder="Plan" autocomplete="OFF">
     </div>
     <div class="input-field col s12">
         <button class="btn btn-small #263238 blue-grey darken-4">submit</button>
