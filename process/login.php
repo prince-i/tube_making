@@ -10,7 +10,7 @@
             echo '<b class="red-text"><center>PLEASE ENTER PASSWORD</center></b>';
        }else{
         //    CHECK IF EXISTS
-        $checkQuery = "SELECT id,user_type FROM tm_user WHERE userid ='$username' AND password = '$pass'";
+        $checkQuery = "SELECT id,user_type FROM tb_users WHERE userid ='$username' AND password = '$pass'";
         $stmt = $conn->prepare($checkQuery);
         $stmt->execute();
         if($stmt->rowCount() > 0){

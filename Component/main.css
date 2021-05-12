@@ -36,3 +36,13 @@
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
 }
+
+#plan_list{
+    min-height:73vh;
+    margin-top:-1%;
+    overflow: auto;
+}
+
+.new-plan{
+    border-radius:30px;
+}

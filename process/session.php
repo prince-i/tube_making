@@ -2,7 +2,7 @@
     require 'login.php';
     if(isset($_SESSION['username'])){
         $userID = $_SESSION['username'];
-        $query = "SELECT *FROM tm_user WHERE userid = '$userID'";
+        $query = "SELECT *FROM tb_users WHERE userid = '$userID'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -20,6 +20,4 @@
         session_destroy();
         header('location: ../index.php');
     }
-
-
 ?>
