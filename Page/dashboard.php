@@ -1,6 +1,7 @@
 <?php
     require '../process/session.php';
     include '../Component/Modals/new_plan.php';
+    include '../Component/Modals/plan_modal_menu.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="">Master List</a></li>
         <li><a href="">History</a></li>
-        <li><a href=" ">Logout</a></li>
+        <li><a href="">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -206,6 +207,20 @@ const save_plan =()=>{
         });
     }
 }
-    </script>
+
+const get_order_code =(orderCode)=>{
+    $('#orderCodeReference').val(orderCode);
+}
+
+const printTag =()=>{
+    var ref = $('#orderCodeReference').val();
+    window.open('../Forms/tube_making_tag.php?ref='+ref,'Tube Making Tag',"width=1000,height=600");
+}
+
+const printKanban =()=>{
+    var code = $('#orderCodeReference').val();
+    window.open('../Forms/generate_tm_kanban.php?order_code='+code,'Kanban','width=1000,height=600');
+}
+</script>
 </body>
 </html>

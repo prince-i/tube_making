@@ -71,7 +71,7 @@
         $stmt->execute();
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr style="cursor:pointer;" onclick="get_order_code(&quot;'.$x['order_code'].'&quot;)" class="modal-trigger" data-target="plan_menu">';
                 echo '<td>'.$x['parts_name'].'</td>';
                 echo '<td>'.$x['parts_code'].'</td>';
                 echo '<td>'.$x['length'].'</td>';
