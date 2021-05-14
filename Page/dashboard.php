@@ -35,8 +35,16 @@
                     <button class="btn #263238 blue-grey darken-4 col s12 btn-large new-plan modal-trigger" data-target="create-plan" onclick="create_plan()">new plan</button>
                 </div>
                 <!-- SEARCH -->
-                <div class="input-field col l4 m12 s12 right">
-                    <input type="text" name="" id="keyword" onchange="load_plan_list()"><label for="keyword">Search</label>
+                <div class="input-field col l2 m12 s12">
+                    <input type="text" name="" id="date_from" class="datepicker" placeholder="Date From" value="<?=$server_date_only;?>">
+                </div>
+
+                <div class="input-field col l2 m12 s12">
+                    <input type="text" name="" id="date_to" class="datepicker" placeholder="Date To" value="<?=$server_date_only;?>">
+                </div>
+
+                <div class="input-field col l2 m12 s12">
+                    <input type="text" name="" id="partscode_search" onchange="load_plan_list()"><label for="keyword">Search Parts Code</label>
                 </div>
             </div>
         </div>
@@ -56,6 +64,7 @@
                         <th>ORDER CODE</th>
                         <th>ORDER DATE</th>
                     </thead>
+                    <tbody id="plan_data"></tbody>
                 </table>
             </div>
     </div>
@@ -72,10 +81,37 @@ $(document).ready(function(){
         inDuration: 300,
         outDuration:200
     });
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoClose: true
+    });
+    load_plan_list();
 });
 // VIEW MODAL HACK METHOD
 const create_plan =()=>{
     $('#render_modal').load('../Forms/modal-new-plan.php');
+}
+
+
+const load_plan_list =()=>{
+    var code = document.querySelector('#partscode_search').value;
+    var dateFrom = document.querySelector('#date_from').value;
+    var dateTo = document.querySelector('#date_to').value;
+    $.ajax({
+        url: '../process/controller.php',
+        type:'POST',
+        cache:false,
+        data:{
+            method: 'fetch_plan',
+            code:code,
+            dateFrom:dateFrom,
+            dateTo:dateTo
+        },success:function(response){
+            // console.log(response);
+            document.getElementById('plan_data').innerHTML = response;
+        }
+    }); 
+
 }
 
 const detect_part_info =()=>{
@@ -157,6 +193,7 @@ const save_plan =()=>{
                 if(response == 'done'){
                     swal('Successful!','','success');
                     $('.modal').modal('close','#create-plan');
+                    load_plan_list();
                 }else if(response == 'exists'){
                     swal('Process already exists!','','info');
                     $('#loader').fadeOut(100);

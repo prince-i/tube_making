@@ -61,4 +61,33 @@
      }
     }
 
+    if($method == 'fetch_plan'){
+        $date_from = $_POST['dateFrom'];
+        $date_to = $_POST['dateTo'];
+        $code = $_POST['code'];
+
+        $query = "SELECT *FROM tb_order WHERE order_date >= '$date_from 00:00:00' AND order_date <='$date_to 23:59:59' AND parts_code LIKE '$code%'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr>';
+                echo '<td>'.$x['parts_name'].'</td>';
+                echo '<td>'.$x['parts_code'].'</td>';
+                echo '<td>'.$x['length'].'</td>';
+                echo '<td>'.$x['plan_qty'].'</td>';
+                echo '<td>'.$x['in_charge'].'</td>';
+                echo '<td>'.$x['shift'].'</td>';
+                echo '<td>'.$x['machine_number'].'</td>';
+                echo '<td>'.$x['setup_number'].'</td>';
+                echo '<td>'.$x['order_code'].'</td>';
+                echo '<td>'.$x['order_date'].'</td>';
+                echo '</tr>';
+            }
+        }else{
+            echo '<tr>';
+            echo '<td colspan="10">NO DATA</td>';
+            echo '</tr>';
+        }
+    }
 ?>
