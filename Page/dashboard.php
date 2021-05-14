@@ -36,7 +36,7 @@
                 </div>
                 <!-- SEARCH -->
                 <div class="input-field col l4 m12 s12 right">
-                    <input type="text" name="" id="keyword"><label for="keyword">Search</label>
+                    <input type="text" name="" id="keyword" onchange="load_plan_list()"><label for="keyword">Search</label>
                 </div>
             </div>
         </div>
@@ -52,6 +52,7 @@
                         <th>IN CHARGE</th>
                         <th>SHIFT</th>
                         <th>MACHINE #</th>
+                        <th>SETUP #</th>
                         <th>ORDER CODE</th>
                         <th>ORDER DATE</th>
                     </thead>
@@ -64,11 +65,12 @@
 
 <script src="../Component/jquery.min.js"></script>
 <script src="../materialize/js/materialize.min.js"></script>
+<script src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
 <script>
 $(document).ready(function(){
     $('.modal').modal({
         inDuration: 300,
-        outDuration:100
+        outDuration:200
     });
 });
 // VIEW MODAL HACK METHOD
@@ -92,9 +94,12 @@ const detect_part_info =()=>{
                 var str = response.split('~!~');
                 document.querySelector('#partsname_plan').value = str[0];
                 document.querySelector('#length_plan').value = str[1];
+                document.querySelector('#qr_code_tubemaking').value = str[2];
+                document.querySelector('#partscode_plan').disabled = true;
             }else{
                 document.querySelector('#partsname_plan').value = '';
                 document.querySelector('#length_plan').value = '';
+                document.querySelector('#qr_code_tubemaking').value = '';
                 M.toast({
                     html:'INVALID PARTS CODE, PLEASE VERIFY',
                     classes:'red rounded'
@@ -102,6 +107,67 @@ const detect_part_info =()=>{
             }
         }
     });
+}
+
+const save_plan =()=>{
+    var partscode = document.querySelector('#partscode_plan').value;
+    var partsname = document.querySelector('#partsname_plan').value;
+    var length = document.querySelector('#length_plan').value;
+    var shift = document.querySelector('#shift_plan').value;
+    var machine_number = document.querySelector('#machine_num_plan').value;
+    var setup_number = document.querySelector('#setup_num_plan').value;
+    var plan = document.querySelector('#planQty').value;
+    var qrcode = document.querySelector('#qr_code_tubemaking').value;
+    var inCharge = '<?=$full_name;?>';
+    if(partscode == ''){
+        swal('Empty Parts Code!','','info');
+    }else if(partsname == ''){
+        swal('Empty Parts Name!','','info');
+    }else if(length == ''){
+        swal('Empty length!','','info');
+    }else if(shift == ''){
+        swal('Empty Shift!','','info');
+    }else if(machine_number == ''){
+        swal('Empty Machine Number!','','info');
+    }else if(plan == ''){
+        swal('Please Enter Plan!','','info');
+    }else if(plan <= 0){
+        swal('Invalid Plan!','','info');
+    }else{
+        // SAVING
+        document.querySelector('#planBtnCreate').disabled = true;
+        document.querySelector('#status_create').innerHTML = 'SAVING & GENERATING SEQUENCE. PLEASE WAIT AND DO NOT RELOAD THE PAGE!';
+        $('#loader').fadeIn(500);
+        $.ajax({
+            url: '../process/controller.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'create_plan_method',
+                partscode:partscode,
+                partsname:partsname,
+                length:length,
+                shift:shift,
+                machine_number:machine_number,
+                setup_number:setup_number,
+                plan:plan,
+                qrcode:qrcode,
+                inCharge:inCharge
+            },success:function(response){
+                if(response == 'done'){
+                    swal('Successful!','','success');
+                    $('.modal').modal('close','#create-plan');
+                }else if(response == 'exists'){
+                    swal('Process already exists!','','info');
+                    $('#loader').fadeOut(100);
+                }else{
+                    swal('Error!','','info');
+                }
+                document.querySelector('#planBtnCreate').disabled = false;
+                document.querySelector('#status_create').innerHTML = '';
+            }
+        });
+    }
 }
     </script>
 </body>

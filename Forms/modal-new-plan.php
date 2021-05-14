@@ -53,7 +53,26 @@
     <div class="input-field col l4 m4 s12">
         <input type="number" id="planQty" min="0" placeholder="Plan" autocomplete="OFF">
     </div>
-    <div class="input-field col s12">
-        <button class="btn btn-small #263238 blue-grey darken-4">submit</button>
+    
+    <!-- QR CODE -->
+    <div class="input-field col l4 m4 s12">
+        <input type="text" id="qr_code_tubemaking" min="0" placeholder="QR Code" autocomplete="OFF" disabled>
+    </div>
+
+
+    <div class="row col s12">
+        <div class="input-field col l4 m4 s12">
+            <button class="btn btn-small #263238 blue-grey darken-4" onclick="save_plan()" id="planBtnCreate">submit</button>
+        </div>
+
+        <div class="input-field col l4 m4 s12">
+            <p id="status_create" style="font-weight:bold;color:red;"></p>
+        </div>
+        <!-- LOADER -->
+        <div class="col s12">
+            <div class="progress" id="loader" style="display:none;">
+                <div class="indeterminate #263238 blue-grey darken-4"></div>
+            </div>
+        </div>
     </div>
 </div>
