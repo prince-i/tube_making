@@ -8,14 +8,30 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../materialize/css/materialize.min.css">
     <title>Kanban</title>
     <style>
         table{
             border-collapse:collapse;
             font-family:arial;
-            margin-bottom:0.5%;
+            /* margin-bottom:0.5%; */
+            min-height:100vh;
         }
+        table, tr, td{
+			color:black;
+			border: 1px solid black;
+			border-width: medium;
+		}
+        @media print {
+            table{
+                min-width:100%;
+            }
+        }
+        
     </style>
+       <script src="../Component/jquery.min.js"></script>
+    <script src="../jqueryqrcode/jquery.qrcode.min.js"></script>
+    
 </head>
 <body>
 <?php
@@ -35,9 +51,12 @@
         $fetch_sequence = "SELECT lot_number FROM tb_sequence WHERE order_code = '$ref'";
         $stmt = $conn->prepare($fetch_sequence);
         $stmt->execute();
+        $id = 0;
         foreach($stmt->fetchALL() as $r){
-    ?>
-        <table style="undefined;table-layout: fixed; width: 446px;height:200px;" border="1">
+        ?>
+        
+        <!-- <table style="table-layout: fixed; width: 446px;height:200px;" border="1"> -->
+        <table style="height:100%;width:100%;table-layout: fixed;" border="1">
         <colgroup>
         <col style="width: 173px">
         <col style="width: 150px">
@@ -47,7 +66,9 @@
         <tbody>
         <tr>
             <td colspan="2"><b>Parts Code:</b> <?=$parts_code;?></td>
-            <td rowspan="2" id="qrcode"></td>
+            <td rowspan="2">
+               <p class="qr" id="qrcode<?=$id;?>" style="width:100px;"></p>
+            </td>
             <td rowspan="5"></td>
         </tr>
         <tr>
@@ -70,17 +91,18 @@
         </tr>
         </tbody>
         </table>
+        <script>
+        generate_qr("<?=$qrcode;?>");
+        function generate_qr(code){
+                $('#qrcode'+<?=$id;?>).qrcode(code);
+            }
+        </script>
     <?php
+        $id++;
         }
     ?>
-    <script src="../Component/jquery.min.js"></script>
-    <script>
-        generate_qr();
-        function generate_qr(){
-            var text_qr = '<?=$qrcode;?>';
-            
-        }
-    </script>
+   
+    
 
 </body>
 </html>
