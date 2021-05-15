@@ -16,20 +16,18 @@
             font-family:arial;
             /* margin-bottom:0.5%; */
             min-height:100vh;
+            font-size:20px;
         }
         table, tr, td{
 			color:black;
 			border: 1px solid black;
 			border-width: medium;
 		}
-        @media print {
-            table{
-                min-width:100%;
-            }
+        .tubemaking{
+            background-color:black;
         }
-        
     </style>
-       <script src="../Component/jquery.min.js"></script>
+    <script src="../Component/jquery.min.js"></script>
     <script src="../jqueryqrcode/jquery.qrcode.min.js"></script>
     
 </head>
@@ -56,20 +54,20 @@
         ?>
         
         <!-- <table style="table-layout: fixed; width: 446px;height:200px;" border="1"> -->
-        <table style="height:100%;width:100%;table-layout: fixed;" border="1">
+        <table style="height:100%;width:100%;" border="1">
         <colgroup>
         <col style="width: 173px">
         <col style="width: 150px">
-        <col style="width: 95px">
+        <col style="width: 130px">
         <col style="width: 28px">
         </colgroup>
         <tbody>
         <tr>
             <td colspan="2"><b>Parts Code:</b> <?=$parts_code;?></td>
             <td rowspan="2">
-               <p class="qr" id="qrcode<?=$id;?>" style="width:100px;"></p>
+               <center id="qrcode<?=$id;?>" ></center>
             </td>
-            <td rowspan="5"></td>
+            <td rowspan="5" class="tubemaking"></td>
         </tr>
         <tr>
             <td colspan="2"><b>Parts Name:</b> <?=$partsname;?></td>
@@ -86,15 +84,19 @@
         </tr>
         <tr>
             <td colspan=3>
-                <center><?=$orderCode."-".$r['lot_number'];?></center>
+                <center><?=$orderCode."-".$r['lot_number'];?> TUBE MAKING</center>
             </td>
         </tr>
         </tbody>
         </table>
         <script>
-        generate_qr("<?=$qrcode;?>");
-        function generate_qr(code){
-                $('#qrcode'+<?=$id;?>).qrcode(code);
+            generate_qr("<?=$qrcode;?>");
+            function generate_qr(code){
+                $('#qrcode'+<?=$id;?>).qrcode({
+                    text:code,
+                    width: 128,
+                    height: 128
+                });
             }
         </script>
     <?php
