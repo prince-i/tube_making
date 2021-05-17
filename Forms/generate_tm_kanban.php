@@ -54,7 +54,7 @@
         ?>
         
         <!-- <table style="table-layout: fixed; width: 446px;height:200px;" border="1"> -->
-        <table style="height:100%;width:100%;" border="1">
+        <table style="height:100%;width:100%;table-layout:fixed;" border="1">
         <colgroup>
         <col style="width: 173px">
         <col style="width: 150px">
@@ -67,7 +67,9 @@
             <td rowspan="2">
                <center id="qrcode<?=$id;?>" ></center>
             </td>
-            <td rowspan="5" class="tubemaking"></td>
+            <td rowspan="5" class="tubemaking">
+                <span style="writing-mode:vertical-rl;color:white;font-size:18px;">TUBEMAKING</span>
+            </td>
         </tr>
         <tr>
             <td colspan="2"><b>Parts Name:</b> <?=$partsname;?></td>
@@ -84,7 +86,7 @@
         </tr>
         <tr>
             <td colspan=3>
-                <center><?=$orderCode."-".$r['lot_number'];?> TUBE MAKING</center>
+                <center><?=$orderCode."-".$r['lot_number'];?> | TUBE MAKING</center>
             </td>
         </tr>
         </tbody>

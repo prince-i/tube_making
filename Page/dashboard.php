@@ -2,11 +2,12 @@
     require '../process/session.php';
     include '../Component/Modals/new_plan.php';
     include '../Component/Modals/plan_modal_menu.php';
+    include '../Component/Modals/masterlist_view_only.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="shortcut icon" href="../Image/water-hose.png" type="image/x-icon">
+<link rel="shortcut icon" href="../Image/logo.png" type="image/x-icon">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="">Master List</a></li>
+        <li><a href="#" data-target="master_view_only" class="modal-trigger">Master List</a></li>
         <li><a href="">History</a></li>
         <li><a href="">Logout</a></li>
       </ul>
@@ -53,14 +54,14 @@
                 </div>
                 <!-- EXPORT -->
                 <div class="input-field col l2 m12 s12">
-                    <button id="exportBtn" class="btn col s12 btn-large #546e7a blue-grey darken-2" onclick="export_plan()"> Export</button>
+                    <button id="exportBtn" class="btn col s12 btn-large #546e7a blue-grey darken-2" onclick="export_plan('planTable')"> Export</button>
                 </div>
             </div>
         </div>
 
         <!-- ORDER/PLAN LIST -->
             <div class="col s12 collection z-depth-1" id="plan_list">
-                <table class="centered">
+                <table class="centered" id="planTable">
                     <thead style="font-size:12px;">
                         <th>PARTSNAME</th>
                         <th>PARTSCODE</th>
@@ -228,6 +229,48 @@ const printTag =()=>{
 const printKanban =()=>{
     var code = $('#orderCodeReference').val();
     window.open('../Forms/generate_tm_kanban.php?order_code='+code,'Kanban','width=1000,height=600');
+}
+
+function export_plan(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'TubeMaking_Logs'+ '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+
+function load_masterlist(){
+    var x = document.querySelector('#masterSearch').value;
+    var ajax = new XMLHTTPRequest();
+    ajax.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            var response = this.responseText;
+
+        }
+    }
+    ajax.open("POST","",true);
+    ajax.send();
 }
 </script>
 </body>
