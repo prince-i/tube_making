@@ -1,6 +1,8 @@
 <?php
     include  '../process/conn.php';
     $ref = $_GET['order_code'];
+    $parts = $_GET['partscode'];
+    $plancode = $_GET['plancode'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +36,7 @@
 <body>
 <?php
         
-        $sql = "SELECT parts_name,parts_code,length,in_charge,order_code,qr_code FROM tb_order WHERE order_code ='$ref'";
+        $sql = "SELECT parts_name,parts_code,length,in_charge,order_code,qr_code,plan_code FROM tb_order WHERE order_code ='$ref' AND parts_code = '$parts' AND plan_code = '$plancode'";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         foreach($stmt->fetchALL() as $x){
@@ -44,9 +46,10 @@
             $inCharge = $x['in_charge'];
             $orderCode = $x['order_code'];
             $qrcode = $x['qr_code'];
+            $planUniq = $x['plan_code'];
         }
 
-        $fetch_sequence = "SELECT lot_number FROM tb_sequence WHERE order_code = '$ref'";
+        $fetch_sequence = "SELECT lot_number FROM tb_sequence WHERE plan_code = '$planUniq'";
         $stmt = $conn->prepare($fetch_sequence);
         $stmt->execute();
         $id = 0;
@@ -82,11 +85,11 @@
         <tr>
             <td><center><?=$length;?></center></td>
             <td><center><?=$inCharge;?></center></td>
-            <td><center></center></td>
+            <td><center><?=$server_date_only;?></center></td>
         </tr>
         <tr>
             <td colspan=3>
-                <center><?=$orderCode."-".$r['lot_number'];?> | TUBE MAKING</center>
+                <center>Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
             </td>
         </tr>
         </tbody>
@@ -107,6 +110,11 @@
     ?>
    
     
+    <script>
+        $(document).ready(function(){
+            window.print();
+        });
+    </script>
 
 </body>
 </html>

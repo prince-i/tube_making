@@ -3,6 +3,7 @@
     include '../Component/Modals/new_plan.php';
     include '../Component/Modals/plan_modal_menu.php';
     include '../Component/Modals/masterlist_view_only.php';
+    include '../Component/Modals/detailSequence.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +21,7 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#" data-target="master_view_only" class="modal-trigger">Master List</a></li>
+        <li><a href="#" data-target="master_view_only" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
         <li><a href="">History</a></li>
         <li><a href="">Logout</a></li>
       </ul>
@@ -135,7 +136,7 @@ const detect_part_info =()=>{
             method: 'fetch_details_plan',
             parts_code:parts_code
         },success:function(response){
-            console.log(response);
+            // console.log(response);
             if(response != ''){
                 var str = response.split('~!~');
                 document.querySelector('#partsname_plan').value = str[0];
@@ -209,6 +210,7 @@ const save_plan =()=>{
                     $('#loader').fadeOut(100);
                 }else{
                     swal('Error!','','info');
+                    $('.modal').modal('close','#create-plan');
                 }
                 document.querySelector('#planBtnCreate').disabled = false;
                 document.querySelector('#status_create').innerHTML = '';
@@ -217,18 +219,24 @@ const save_plan =()=>{
     }
 }
 
-const get_order_code =(orderCode)=>{
-    $('#orderCodeReference').val(orderCode);
+const get_order_code =(param)=>{
+    // $('#orderCodeReference').val(orderCode);
+    var str = param.split('~!~');
+    $('#orderCodeReference').val(str[0]);
+    $('#orderPartsCode').val(str[1]);
+    $('#orderPlanCode').val(str[2])
 }
 
-const printTag =()=>{
-    var ref = $('#orderCodeReference').val();
-    window.open('../Forms/tube_making_tag.php?ref='+ref,'Tube Making Tag',"width=1000,height=600");
-}
+// const printTag =()=>{
+//     var ref = $('#orderCodeReference').val();
+//     window.open('../Forms/tube_making_tag.php?ref='+ref,'Tube Making Tag',"width=1000,height=600");
+// }
 
 const printKanban =()=>{
     var code = $('#orderCodeReference').val();
-    window.open('../Forms/generate_tm_kanban.php?order_code='+code,'Kanban','width=1000,height=600');
+    var parts = $('#orderPartsCode').val();
+    var planCode = $('#orderPlanCode').val();
+    window.open('../Forms/generate_tm_kanban.php?order_code='+code+'&&partscode='+parts+'&&plancode='+planCode,'Kanban','width=1000,height=600');
 }
 
 function export_plan(table_id, separator = ',') {
@@ -260,18 +268,93 @@ function export_plan(table_id, separator = ',') {
 }
 
 
-function load_masterlist(){
-    var x = document.querySelector('#masterSearch').value;
-    var ajax = new XMLHTTPRequest();
-    ajax.onreadystatechange = function(){
-        if(this.readyState == 4 && this.status == 200){
-            var response = this.responseText;
 
+function export_master_user(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
         }
+        csv.push(row.join(separator));
     }
-    ajax.open("POST","",true);
-    ajax.send();
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'TubeMaking_Masterlist'+ '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
+
+const load_masterlist =()=>{
+    var x = $('#masterSearch').val();
+    $.ajax({
+        url:'../process/controller.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'view_master',
+            x:x
+        },success:function(response){
+            $('#master_details').html(response);
+        }
+    });
+}
+
+const plan_details =()=>{
+    document.getElementById('check_all').checked = false;
+    var orderCode = document.querySelector('#orderCodeReference').value;
+    var planCode = document.querySelector('#orderPlanCode').value;
+    var partsCode = document.querySelector('#orderPartsCode').value;
+    $.ajax({
+        url: '../process/controller.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'prevSequence',
+            orderCode:orderCode,
+            planCode:planCode,
+            partsCode:partsCode
+        },success:function(response){
+            // console.log(response);
+            $('#sequence_data').html(response);
+        }
+    });
+}
+
+const select_all_func =()=>{
+    var select_all = document.getElementById('check_all');
+    if(select_all.checked == true){
+        console.log('check');
+        $('.singleCheck').each(function(){
+            this.checked=true;
+        });
+    }else{
+        console.log('uncheck');
+        $('.singleCheck').each(function(){
+            this.checked=false;
+        });
+    }
+}
+const get_to_reprint =()=>{
+    var arr = [];
+    $('input.singleCheck:checkbox:checked').each(function () {
+        arr.push($(this).val());
+    });
+    console.log(arr);
+}
+
 </script>
 </body>
 </html>
