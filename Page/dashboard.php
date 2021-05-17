@@ -353,6 +353,7 @@ const get_to_reprint =()=>{
         arr.push($(this).val());
     });
     console.log(arr);
+    window.open('../Forms/reprint_kanban.php?id='+arr,'Kanban','width=1000,height=600');
 }
 
 </script>
