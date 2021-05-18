@@ -23,7 +23,7 @@
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="master_view_only" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
-        <li><a href="">History</a></li>
+        <li><a href="">History Logs</a></li>
         <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
     </div>
@@ -36,7 +36,7 @@
         <div class="row">
             <div class="col s12">
                 <div class="input-field col l2 m12 s12">
-                    <button class="btn #263238 blue-grey darken-4 col s12 btn-large new-plan modal-trigger" data-target="create-plan" onclick="create_plan()">new plan</button>
+                    <button class="btn #263238 blue-grey darken-4 col s12 btn-large new-plan modal-trigger" data-target="create-plan" onclick="create_plan()" style="border-radius:30px;">new plan</button>
                 </div>
                 <!-- SEARCH -->
                 <div class="input-field col l2 m12 s12">
@@ -52,11 +52,11 @@
                 </div>
                 <!-- SEARCH BTN -->
                 <div class="input-field col l2 m12 s12">
-                    <button class="btn col s12 btn-large #607d8b blue-grey" onclick="load_plan_list()" id="search-plan"> Search</button>
+                    <button class="btn col s12 btn-large #607d8b blue-grey" onclick="load_plan_list()" id="search-plan" style="border-radius:30px;"> Search</button>
                 </div>
                 <!-- EXPORT -->
                 <div class="input-field col l2 m12 s12">
-                    <button id="exportBtn" class="btn col s12 btn-large #546e7a blue-grey darken-2" onclick="export_plan('planTable')"> Export</button>
+                    <button id="exportBtn" class="btn col s12 btn-large #546e7a blue-grey darken-2" onclick="export_plan('planTable')" style="border-radius:30px;"> Export</button>
                 </div>
             </div>
         </div>

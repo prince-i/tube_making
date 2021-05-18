@@ -7,7 +7,7 @@
         <div class="col s12">
             <form action="" method="post">
                 <div class="input-field col s12">
-                    <input type="submit" value="logout" class="btn btn-large #455a64 blue-grey darken-2 col s12" name="logout">
+                    <input type="submit" value="logout" class="btn btn-large #455a64 blue-grey darken-2 col s12" name="logout" style="border-radius:30px;">
                 </div>
             </form>
         </div>
