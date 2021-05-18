@@ -1,5 +1,5 @@
 <?php
-    include  '../process/conn.php';
+    include  '../process/session.php';
     $ref = $_GET['order_code'];
     $parts = $_GET['partscode'];
     $plancode = $_GET['plancode'];

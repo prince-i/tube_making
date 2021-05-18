@@ -4,6 +4,7 @@
     include '../Component/Modals/plan_modal_menu.php';
     include '../Component/Modals/masterlist_view_only.php';
     include '../Component/Modals/detailSequence.php';
+    include '../Component/Modals/logout-modal.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +24,7 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="master_view_only" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
         <li><a href="">History</a></li>
-        <li><a href="">Logout</a></li>
+        <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -352,8 +353,13 @@ const get_to_reprint =()=>{
     $('input.singleCheck:checkbox:checked').each(function () {
         arr.push($(this).val());
     });
-    console.log(arr);
-    window.open('../Forms/reprint_kanban.php?id='+arr,'Kanban','width=1000,height=600');
+    var numberOfChecked = arr.length;
+    if(numberOfChecked > 0){
+        window.open('../Forms/reprint_kanban.php?id='+arr,'Kanban','width=1000,height=600');
+    }else{
+        swal('NO ITEM IS SELECTED','','info');
+    }
+    
 }
 
 </script>

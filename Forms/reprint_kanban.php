@@ -1,8 +1,5 @@
 <?php
-    include  '../process/conn.php';
-    // $ref = $_GET['order_code'];
-    // $parts = $_GET['partscode'];
-    // $plancode = $_GET['plancode'];
+    include '../process/session.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +13,6 @@
         table{
             border-collapse:collapse;
             font-family:arial;
-            /* margin-bottom:0.5%; */
             min-height:100vh;
             font-size:20px;
         }
