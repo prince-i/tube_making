@@ -48,4 +48,40 @@
             }
         }
     }
+
+    if($method == 'load_masterlist_admin'){
+        $keyword = $_POST['keyword'];
+        // QUERY
+        $sql = "SELECT *FROM kanban_masterlist WHERE partcode LIKE '$keyword%' OR partname LIKE '$keyword%' OR qr_code LIKE '$keyword%'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+           foreach($stmt->fetchAll() as $x){
+            echo '<tr>';
+            echo '<td>'.$x['partcode'].'</td>';
+            echo '<td>'.$x['partname'].'</td>';
+            echo '<td>'.$x['packing_quantity'].'</td>';
+            echo '<td>'.$x['qr_code'].'</td>';
+            echo '</tr>';
+           }
+        }else{
+            echo '<tr>';
+            echo '<td colspan="4">NO DATA</td>';
+            echo '</tr>';
+        }
+    }
+    if($method == 'add_part'){
+        $partscode = $_POST['partscode'];
+        $partsname = $_POST['partsname'];
+        $packing = $_POST['packing'];
+        $qr = $_POST['qrCode'];
+        // INSERT
+        $sql = "INSERT INTO kanban_masterlist (`partcode`,`partname`,`packing_quantity`,`qr_code`) VALUES ('$partscode','$partsname','$packing','$qr')";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
+        }
+    }
 ?>

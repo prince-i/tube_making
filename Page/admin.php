@@ -2,6 +2,10 @@
     require '../process/session.php';
     include '../Component/Modals/logout-modal.php';
     include '../Component/Modals/plan_admin_modal.php';
+    include '../Component/Modals/masterlist_admin.php';
+    include '../Component/Modals/add_masterlist.php';
+    include '../Component/Modals/upload_masterlist.php';
+    include '../Component/Modals/user_management.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +23,8 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#" data-target="master_view_only" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
+        <li><a href="#" data-target="masterlist_admin" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
+        <li><a href="#" class="modal-trigger" data-target="manage_user">Manage Users</a></li>
         <li><a href="">History Logs</a></li>
         <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
@@ -106,6 +111,7 @@
             format: 'yyyy-mm-dd',
             autoClose: true
         });
+        $('input:text').attr('autocomplete','off');
         load_plan_list();
     });
 
@@ -165,6 +171,120 @@
            }
         });
     }
+
+    function export_plan(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'TubeMaking_Logs'+ '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function export_masterlist(table_id, separator = ',') {
+    // Select rows from table_id
+    var rows = document.querySelectorAll('table#' + table_id + ' tr');
+    // Construct csv
+    var csv = [];
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll('td, th');
+        for (var j = 0; j < cols.length; j++) {
+            var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
+            data = data.replace(/"/g, '""');
+            // Push escaped string
+            row.push('"' + data + '"');
+        }
+        csv.push(row.join(separator));
+    }
+    var csv_string = csv.join('\n');
+    // Download it
+    var filename = 'TubeMaking_Masterlist'+ '_' + new Date().toLocaleDateString() + '.csv';
+    var link = document.createElement('a');
+    link.style.display = 'none';
+    link.setAttribute('target', '_blank');
+    link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+const load_masterlist =()=>{
+    var keyword = document.querySelector('#searchKey').value;
+    $.ajax({
+        url: '../process/admin_function.php',
+        type: 'POST',
+        cache:false,
+        data:{
+            method: 'load_masterlist_admin',
+            keyword:keyword
+        },success:function(response){
+            $('#masterData').html(response);
+        }
+    });
+}
+const saveItem =()=>{
+    var partscode = $('#new_partcode').val();
+    var partsname = $('#new_partname').val();
+    var packing = $('#new_packingQty').val();
+    var qrCode = $('#new_qrcode').val();
+
+    if(partscode == ''){
+        swal('Enter Parts Code!','','info');
+    }else if(partsname == ''){
+        swal('Enter Parts Name!','','info');
+    }else if(packing == ''){
+        swal('Enter Packing Quantity!','','info');
+    }else if(packing < 0){
+        swal('Invalid Packing Quantity!','','info');
+    }else{
+        $.ajax({
+        url:'../process/admin_function.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'add_part',
+            partscode:partscode,
+            partsname:partsname,
+            packing:packing,
+            qrCode:qrCode
+        },success:function(response){
+            if(response == 'success'){
+                clear();
+                $('.modal').modal('close','#create-master-item');
+                swal('Success!','','success');
+            }else{
+                swal('Error!','','error');
+            }
+        }
+        });
+    }
+}
+
+const clear =()=>{
+    $('#new_partcode').val('');
+    $('#new_partname').val('');
+    $('#new_packingQty').val('');
+    $('#new_qrcode').val('');
+}
 </script>
 </body>
 </html>
