@@ -159,10 +159,9 @@
                orderCode:orderCode,
                planCode:planCode
            },success:function(response){
-            console.log(response);
-
             $('#delPlanBtn').attr('disabled',false);
             $('#delPlanBtn').html('Delete');
+            $('.modal').modal('close','#plan_menu_admin');
            }
         });
     }
