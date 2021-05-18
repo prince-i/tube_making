@@ -348,6 +348,15 @@ const select_all_func =()=>{
         });
     }
 }
+
+const uncheck_all =()=>{
+    var select_all = document.getElementById('check_all');
+    select_all.checked = false;
+    $('.singleCheck').each(function(){
+        this.checked=false;
+    });
+}
+
 const get_to_reprint =()=>{
     var arr = [];
     $('input.singleCheck:checkbox:checked').each(function () {
