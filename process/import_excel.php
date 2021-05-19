@@ -21,7 +21,7 @@
                     $prevQuery = "SELECT id FROM kanban_masterlist WHERE partcode = '$line[0]'";
                     $res = $conn->query($prevQuery);
                     if($res->rowCount() > 0){
-                        $update = "UPDATE kanban_masterlist SET partname = '$partname', packing_quantity = '$qty' , qr_code ='$qrcode'";
+                        $update = "UPDATE kanban_masterlist SET partname = '$partname', packing_quantity = '$qty' , qr_code ='$qrcode' WHERE partcode ='$partcode'";
                         $stmt = $conn->prepare($update);
                         $stmt->execute();
                         
