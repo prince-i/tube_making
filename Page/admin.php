@@ -25,7 +25,7 @@
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="masterlist_admin" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
-        <li><a href="#" class="modal-trigger" data-target="manage_user">Manage Users</a></li>
+        <li><a href="#" class="modal-trigger" data-target="manage_user" onclick="load_users()">Manage Users</a></li>
         <li><a href="">History Logs</a></li>
         <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
@@ -363,21 +363,33 @@ const get_masterlist_value =()=>{
     }
 }
 
-// const import_master =()=>{
-//     var file = document.querySelector('#excelTemp').files; 
-//     $.ajax({
-//         url: '../process/import_excel.php',
-//         type: 'POST',
-//         cache: false,
-//         data:{
-//             file:file
-//         },success:function(response){
-//             console.log(response);
-//         }
-//     });
-// }   
+const load_users =()=>{
+    var userSearch = document.querySelector('#searchUser').value;
+    $.ajax({
+        url: '../process/admin_function.php',
+        type:'POST',
+        cache: false,
+        data:{
+            method: 'fetch_users',
+            userSearch:userSearch
+        },success:function(response){
+            document.querySelector('#userData').innerHTML = response;
+        }
+    });
+}
 
-
+const select_all_user =()=>{
+    var thisbutton = document.querySelector('#check_all_user');
+    if(thisbutton.checked == true){
+        $('.singleCheckUser').each(function(){
+            this.checked = true;
+        });
+    }else{
+        $('.singleCheckUser').each(function(){
+            this.checked = false;
+        });
+    }
+}
 
 </script>
 </body>

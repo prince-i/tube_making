@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col s12">
             <div class="col s6 input-field">
-                <input type="text" name="" id="searchUser"><label for="">Search</label>
+                <input type="text" name="" id="searchUser" onchange="load_users()"><label for="">Search</label>
             </div>
             <div class="col s6 input-field">
                 <button class="btn #263238 blue-grey darken-4 right">Add User</button>
@@ -18,6 +18,14 @@
         <div class="col s12 collection" style="min-height:100vh;overflow:auto;">
             <table class="centered" id="userMasterlist">
                 <thead>
+                    <th>
+                        <p>
+                            <label>
+                                <input type="checkbox" name="" id="check_all_user" onclick="select_all_user()">
+                                <span></span>
+                            </label>
+                        </p>
+                    </th>
                     <th>USER ID</th>
                     <th>PASSWORD</th>
                     <th>FULL NAME</th>
@@ -28,4 +36,4 @@
         </div>
     </div>
 </div>
-</div>
+</div> 

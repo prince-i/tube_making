@@ -111,4 +111,35 @@
             echo 'error';
         }
     }
+
+    if($method == 'fetch_users'){
+        $x = $_POST['userSearch'];
+        $query = "SELECT *FROM tb_users WHERE userid LIKE '$x%' OR full_name LIKE '$x%' OR user_type LIKE '$x%'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchALL() as $x){
+                echo '<tr>';
+                echo '<td>
+                <p>
+                    <label>
+                        <input type="checkbox" name="" id="checkUser" class="singleCheckUser" onclick="get_user_select()">
+                        <span></span>
+                    </label>
+                </p>    
+                </td>';
+                echo '<td>'.$x['userid'].
+                '</td>';
+                echo '<td>'.$x['password'].
+                '</td>';
+                echo '<td>'.$x['full_name'].
+                '</td>';
+                echo '<td>'.$x['user_type'].
+                '</td>';
+                echo '</tr>';
+            }
+        }else{
+
+        }
+    }
 ?>
