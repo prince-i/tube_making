@@ -1,6 +1,6 @@
 <div class="modal bottom-sheet" id="masterlist_admin" style="min-height:100vh;">
 <div class="modal-footer">
-<button class="btn-flat modal-close" style="color:red;font-size:30px;">&times;</button>
+<button class="btn-flat modal-close" style="color:red;font-size:30px;" onclick="uncheck_all()">&times;</button>
 </div>
 <div class="modal-content">
     <div class="row">
@@ -20,9 +20,24 @@
         </div>
     </div>
     <div class="row">
+        <div class="col s12" id="checkbox_control" style="display:none;">
+            <button class="btn #37474f blue-grey darken-3" onclick="uncheck_all()">Uncheck All</button>
+            <button class="btn #ff3d00 deep-orange accent-3" onclick="get_masterlist_value()">Delete</button>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col s12 collection" style="max-height:100vh;overflow:auto;">
             <table class="centered" id="adminMasterlist">
                 <thead>
+                    <th>
+                        <p>
+                            <label>
+                                <input type="checkbox" name="" id="selectmaster_all" onclick="select_all_master()">
+                                <span></span>
+                            </label>
+                        </p>
+                    </th>
                     <th>PARTSCODE</th>
                     <th>PARTSNAME</th>
                     <th>PACKING QUANTITY</th>

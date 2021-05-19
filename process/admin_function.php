@@ -58,6 +58,14 @@
         if($stmt->rowCount() > 0){
            foreach($stmt->fetchAll() as $x){
             echo '<tr>';
+            echo '<td>';
+                echo '<p>
+                        <label>
+                            <input type="checkbox" name="" id="selectItem" class="singleCheckMaster" value="'.$x['id'].'" onclick="get_checked_length()">
+                            <span></span>
+                        </label>
+                    </p>';
+                echo '</td>';
             echo '<td>'.$x['partcode'].'</td>';
             echo '<td>'.$x['partname'].'</td>';
             echo '<td>'.$x['packing_quantity'].'</td>';
@@ -82,6 +90,25 @@
             echo 'success';
         }else{
             echo 'fail';
+        }
+    }
+
+    if($method == 'delete_kanban_master_item'){
+        $arrayID = [];
+        $arrayID = $_POST['arrID'];
+        $selectedCount = count($arrayID);
+        foreach($arrayID as $x){
+            $sql = "DELETE FROM kanban_masterlist WHERE id='$x'";
+            $stmt = $conn->prepare($sql);
+            if($stmt->execute()){
+                $selectedCount = $selectedCount - 1;
+            }
+        }
+        $selectedCount;
+        if($selectedCount == 0){
+            echo 'done';
+        }else{
+            echo 'error';
         }
     }
 ?>

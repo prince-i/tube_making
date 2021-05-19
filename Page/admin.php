@@ -6,6 +6,7 @@
     include '../Component/Modals/add_masterlist.php';
     include '../Component/Modals/upload_masterlist.php';
     include '../Component/Modals/user_management.php';
+    // include '../process/import_excel.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +115,6 @@
         $('input:text').attr('autocomplete','off');
         load_plan_list();
     });
-
     const load_plan_list =()=>{
         var dateFrom = document.getElementById('date_from').value;
         var dateTo = document.getElementById('date_to').value;
@@ -238,15 +238,16 @@ const load_masterlist =()=>{
             keyword:keyword
         },success:function(response){
             $('#masterData').html(response);
+            get_checked_length();
         }
     });
+    
 }
 const saveItem =()=>{
     var partscode = $('#new_partcode').val();
     var partsname = $('#new_partname').val();
     var packing = $('#new_packingQty').val();
     var qrCode = $('#new_qrcode').val();
-
     if(partscode == ''){
         swal('Enter Parts Code!','','info');
     }else if(partsname == ''){
@@ -269,8 +270,9 @@ const saveItem =()=>{
         },success:function(response){
             if(response == 'success'){
                 clear();
-                $('.modal').modal('close','#create-master-item');
+                // $('.modal').modal('close','#create-master-item');
                 swal('Success!','','success');
+                load_masterlist();
             }else{
                 swal('Error!','','error');
             }
@@ -285,6 +287,98 @@ const clear =()=>{
     $('#new_packingQty').val('');
     $('#new_qrcode').val('');
 }
+
+// CHECK ALL CHECKBOX
+const select_all_master =()=>{
+    var all_button = document.getElementById('selectmaster_all');
+    if(all_button.checked == true){
+        $('.singleCheckMaster').each(function(){
+            this.checked = true;
+        });
+    }else{
+        $('.singleCheckMaster').each(function(){
+            this.checked = false;
+        });
+    }
+    get_checked_length();
+}
+
+// GET THE LENGTH OF CHECKED CHECKBOXES
+const get_checked_length =()=>{
+    var checkedArr = [];
+    $('input.singleCheckMaster:checkbox:checked').each(function(){
+        checkedArr.push($(this).val());
+    });
+    var number_of_selected = checkedArr.length;
+    // console.log(number_of_selected);
+    if(number_of_selected > 0){
+        $('#checkbox_control').fadeIn(500);
+    }else{
+        $('#checkbox_control').fadeOut(500);
+    }
+}
+
+const uncheck_all =()=>{
+    var select_all = document.getElementById('selectmaster_all');
+    select_all.checked = false;
+    $('.singleCheckMaster').each(function(){
+        this.checked=false;
+    });
+    get_checked_length();
+}
+
+// GET VALUES TO DELETE
+const get_masterlist_value =()=>{
+    var arrID = [];
+    $('input.singleCheckMaster:checkbox:checked').each(function(){
+        arrID.push($(this).val());
+    });
+    var validateSelect = arrID.length;
+    if(validateSelect > 0){
+        var x = confirm('CONFIRM DELETE. PLEASE CLICK OK!');
+        if(x == true){
+            // console.log('confirm');
+            $.ajax({
+                url: '../process/admin_function.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'delete_kanban_master_item',
+                    arrID:arrID
+                },success:function(response){
+                    if(response == 'done'){
+                        swal('SUCCESSFULLY DELETED!','','success');
+                        load_masterlist();
+                    }else{
+                        swal('Error','','error');
+                    }
+                    get_checked_length();
+                }
+            });
+        }else{
+            // DO NOTHING
+        }
+    }else{
+        swal('NO ITEM IS SELECTED','','info');
+    }
+}
+
+// const import_master =()=>{
+//     var file = document.querySelector('#excelTemp').files; 
+//     $.ajax({
+//         url: '../process/import_excel.php',
+//         type: 'POST',
+//         cache: false,
+//         data:{
+//             file:file
+//         },success:function(response){
+//             console.log(response);
+//         }
+//     });
+// }   
+
+
+
 </script>
 </body>
 </html>
