@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col s12" id="checkbox_control">
             <button class="btn #37474f blue-grey darken-3" onclick="uncheck_all()">Uncheck All</button>
-            <button class="btn #ff3d00 deep-orange accent-3" onclick="get_masterlist_value()">Delete</button>
+            <button class="btn #ff3d00 deep-orange accent-3" onclick="get_masterlist_value()" >Delete</button>
         </div>
     </div>
 
