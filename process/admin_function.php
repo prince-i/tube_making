@@ -123,7 +123,7 @@
                 echo '<td>
                 <p>
                     <label>
-                        <input type="checkbox" name="" id="checkUser" class="singleCheckUser" onclick="get_user_select()">
+                        <input type="checkbox" name="" id="checkUser" class="singleCheckUser" value="'.$x['id'].'" onclick="get_user_select()">
                         <span></span>
                     </label>
                 </p>    
@@ -139,7 +139,50 @@
                 echo '</tr>';
             }
         }else{
+            echo '<tr>';
+            echo '<td colspan="5">NO DATA</td>';
+            echo '</tr>';
+        }
+    }
 
+    if($method == 'addUser'){
+        $userID = $_POST['userid'];
+        $password = $_POST['passwd'];
+        $fullname = $_POST['fullname'];
+        $usertype = $_POST['usertype'];
+        // CHECK USER ID IF EXISTS
+        $query = "SELECT *FROM tb_users WHERE userid =  '$userID'";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        if($stmt->rowCount() > 0){
+            echo 'exists';
+        }else{
+            // INSERT TO DB
+            $save = "INSERT INTO tb_users (`userid`,`password`,`full_name`,`user_type`) VALUES ('$userID','$password','$fullname','$usertype')";
+            $stmt = $conn->prepare($save);
+            if($stmt->execute()){
+                echo 'save';
+            }else{
+                echo 'fail';
+            }
+        }
+    }
+
+    if($method == 'deleteUser'){
+        $users = [];
+        $users = $_POST['userArray'];
+        $selectedUser = count($users);
+        foreach($users as $x){
+           $sql = "DELETE FROM tb_users WHERE id = '$x'";
+           $stmt = $conn->prepare($sql);
+           if($stmt->execute()){
+               $selectedUser = $selectedUser - 1;
+           }
+        }
+        if($selectedUser == 0){
+            echo 'done';
+        }else{
+            echo 'error';
         }
     }
 ?>

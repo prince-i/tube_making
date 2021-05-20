@@ -6,6 +6,7 @@
     include '../Component/Modals/add_masterlist.php';
     include '../Component/Modals/upload_masterlist.php';
     include '../Component/Modals/user_management.php';
+    include '../Component/Modals/add_user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,6 +114,8 @@
         });
         $('input:text').attr('autocomplete','off');
         load_plan_list();
+        $('#checkbox_control button').attr('disabled',true);
+        $('#user_control button').attr('disabled',true);
     });
     const load_plan_list =()=>{
         var dateFrom = document.getElementById('date_from').value;
@@ -312,9 +315,10 @@ const get_checked_length =()=>{
     var number_of_selected = checkedArr.length;
     // console.log(number_of_selected);
     if(number_of_selected > 0){
-        $('#checkbox_control').fadeIn(500);
+        // $('#checkbox_control').fadeIn(500);
+        $('#checkbox_control button').attr('disabled',false);
     }else{
-        $('#checkbox_control').fadeOut(500);
+        $('#checkbox_control button').attr('disabled',true);
     }
 }
 
@@ -374,6 +378,7 @@ const load_users =()=>{
             userSearch:userSearch
         },success:function(response){
             document.querySelector('#userData').innerHTML = response;
+            get_user_select();
         }
     });
 }
@@ -389,7 +394,100 @@ const select_all_user =()=>{
             this.checked = false;
         });
     }
+    get_user_select();
 }
+
+const get_user_select =()=>{
+    var checkedArr = [];
+    $('input.singleCheckUser:checkbox:checked').each(function(){
+        checkedArr.push($(this).val());
+    });
+    var number_of_selected = checkedArr.length;
+    // console.log(number_of_selected);
+    if(number_of_selected > 0){
+        $('#user_control button').attr('disabled',false);
+    }else{
+        $('#user_control button').attr('disabled',true);
+    }
+}
+
+const uncheck_all_user =()=>{
+    var select_all = document.getElementById('check_all_user');
+    select_all.checked = false;
+    $('.singleCheckUser').each(function(){
+        this.checked=false;
+    });
+    get_user_select();
+}
+
+
+const saveUser =()=>{
+    var userid = $('#addUserID').val();
+    var passwd = $('#addPassword').val();
+    var fullname = $('#addFullname').val();
+    var usertype = $('#addUsertype').val();
+    if(userid == '' || passwd == '' || fullname == '' || usertype == ''){
+        swal('Please complete all fields!','','info');
+    }else{
+        $.ajax({
+            url: '../process/admin_function.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'addUser',
+                userid:userid,
+                passwd:passwd,
+                fullname:fullname,
+                usertype:usertype
+            },success:function(response){
+                if(response == 'exists'){
+                    swal('User already exists!','','info');
+                }else if(response == 'save'){
+                    swal('User added successfully!','','info');
+                    load_users();
+                }else{
+                    swal('User failed to add!','','info');
+                }
+            }
+        });
+    }
+}
+
+const get_to_delete_user =()=>{
+    var userArray = [];
+    $('input.singleCheckUser:checkbox:checked').each(function(){
+        userArray.push($(this).val());
+    });
+    var val_selected_user = userArray.length;
+    if(val_selected_user > 0){
+        var x = confirm("Click OK to confirm deletion!");
+        if(x == true){
+            // DELETE AJAX
+            $.ajax({
+                url: '../process/admin_function.php',
+                type: 'POST',
+                cache: false,
+                data:{
+                    method: 'deleteUser',
+                    userArray:userArray
+                },success:function(response){
+                   if(response == 'done'){
+                    swal('SUCCESSFULLY DELETED!','','info');
+                    load_users();
+                   }else{
+                       swal('Error to delete!','','info');
+                   }
+                   get_user_select();
+                }
+            });
+        }else{
+            // DO NOTHING
+        }
+    }else{
+        swal('NO USER IS SELECTED','','info');
+    }
+}
+
 
 </script>
 </body>
