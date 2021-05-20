@@ -119,7 +119,7 @@
         $stmt->execute();
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
-                echo '<tr>';
+                echo '<tr class="modal-trigger" data-target="editusermodal" onclick="get_data_user(&quot;'.$x['id'].'~!~'.$x['userid'].'~!~'.$x['password'].'~!~'.$x['full_name'].'~!~'.$x['user_type'].'&quot;)">';
                 echo '<td>
                 <p>
                     <label>
@@ -183,6 +183,21 @@
             echo 'done';
         }else{
             echo 'error';
+        }
+    }
+
+    if($method == 'update_user'){
+        $id = $_POST['ref_id'];
+        $userid = $_POST['new_userid'];
+        $password = $_POST['new_password'];
+        $fullname = $_POST['new_fullname'];
+        $usertype = $_POST['new_usertype'];
+        $sql = "UPDATE tb_users SET userid ='$userid', password ='$password', full_name = '$fullname', user_type = '$usertype' WHERE id = '$id'";
+        $stmt = $conn->prepare($sql);
+        if($stmt->execute()){
+            echo 'success';
+        }else{
+            echo 'fail';
         }
     }
 ?>

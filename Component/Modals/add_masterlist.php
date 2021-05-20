@@ -19,7 +19,7 @@
                 <input type="text" name="" id="new_qrcode"><label for="">QR Code</label>
             </div>
             <div class="col s12 input-field">
-                <button class="btn btn-large green col s12" onclick="saveItem()">save</button>
+                <button class="btn btn-large green col s12" onclick="saveItem()" id="saveMasterBtn">save</button>
             </div>
         </div>
     </div>

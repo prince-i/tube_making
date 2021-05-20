@@ -1,6 +1,6 @@
 <?php
+    // error_reporting(0);
     require 'conn.php';
-    
     if(isset($_POST['upload'])){
         $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
         
@@ -17,9 +17,12 @@
                     $partname = $line[1];
                     $qty = $line[2];
                     $qrcode = $line[3];
-
-                    
-                    // CHECK DATA
+                    // CHECK IF BLANK DATA
+                    if($line[0] == '' || $line[1] == '' || $line[2] == '' || $line[3] == ''){
+                        // IF BLANK DETECTED ERROR += 1
+                        $error = $error + 1;
+                    }else{
+                        // CHECK DATA
                     $prevQuery = "SELECT id FROM kanban_masterlist WHERE partcode = '$line[0]'";
                     $res = $conn->query($prevQuery);
                     if($res->rowCount() > 0){
@@ -39,6 +42,7 @@
                         }else{
                             $error = $error + 1;
                         }
+                    }
                     }
                 }
                 

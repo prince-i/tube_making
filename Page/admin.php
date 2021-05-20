@@ -1,4 +1,5 @@
 <?php
+    
     require '../process/session.php';
     include '../Component/Modals/logout-modal.php';
     include '../Component/Modals/plan_admin_modal.php';
@@ -7,6 +8,7 @@
     include '../Component/Modals/upload_masterlist.php';
     include '../Component/Modals/user_management.php';
     include '../Component/Modals/add_user.php';
+    include '../Component/Modals/edit_user.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -260,6 +262,8 @@ const saveItem =()=>{
     }else if(packing < 0){
         swal('Invalid Packing Quantity!','','info');
     }else{
+        document.querySelector('#saveMasterBtn').disabled = true;
+        document.querySelector('#saveMasterBtn').innerHTML = 'SAVING...';
         $.ajax({
         url:'../process/admin_function.php',
         type: 'POST',
@@ -279,6 +283,8 @@ const saveItem =()=>{
             }else{
                 swal('Error!','','error');
             }
+            document.querySelector('#saveMasterBtn').disabled = false;
+            document.querySelector('#saveMasterBtn').innerHTML = 'SAVE';
         }
         });
     }
@@ -429,6 +435,8 @@ const saveUser =()=>{
     if(userid == '' || passwd == '' || fullname == '' || usertype == ''){
         swal('Please complete all fields!','','info');
     }else{
+        document.querySelector('#saveUserBtn').disabled = true;
+        document.querySelector('#saveUserBtn').innerHTML = 'SAVING...';
         $.ajax({
             url: '../process/admin_function.php',
             type: 'POST',
@@ -449,6 +457,8 @@ const saveUser =()=>{
                 }else{
                     swal('User failed to add!','','info');
                 }
+                document.querySelector('#saveUserBtn').disabled = false;
+                document.querySelector('#saveUserBtn').innerHTML = 'SAVE';
             }
         });
     }
@@ -497,6 +507,59 @@ const clear_add =()=>{
     document.querySelector('#addUsertype').selectedIndex = 0;
 }
 
+const get_data_user =(param)=>{
+   var string = param.split('~!~');
+   document.querySelector('#recordID').value = string[0];
+   document.querySelector('#edit_userid').value = string[1];
+   document.querySelector('#edit_password').value = string[2];
+   document.querySelector('#edit_fullname').value = string[3];
+   document.querySelector('#edit_user_type').value = string[4];
+}
+
+const update_user =()=>{
+    var ref_id = document.querySelector('#recordID').value;
+    var new_userid = document.querySelector('#edit_userid').value;
+    var new_password = document.querySelector('#edit_password').value;
+    var new_fullname = document.querySelector('#edit_fullname').value;
+    var new_usertype = document.querySelector('#edit_user_type').value;
+    if(new_userid == '' || new_password =='' || new_fullname == '' || new_usertype == ''){
+        swal('Please complete all fields!','','info');
+    }else{
+        // AJAX
+        document.querySelector('#update_user_btn').disabled = true;
+        $.ajax({
+            url: '../process/admin_function.php',
+            type: 'POST',
+            cache: false,
+            data:{
+                method: 'update_user',
+                ref_id:ref_id,
+                new_userid:new_userid,
+                new_password:new_password,
+                new_fullname:new_fullname,
+                new_usertype:new_usertype
+            },success:function(response){
+                if(response == 'success'){
+                    swal('UPDATED!','','success');
+                    load_users();
+                    clear_edits();
+                }else{
+                    swal('ERROR IN UPDATING!','','success');
+                }
+                document.querySelector('#update_user_btn').disabled = false;
+            }
+        });
+    }
+}
+
+const clear_edits =()=>{
+    document.querySelector('#recordID').value = '';
+    document.querySelector('#edit_userid').value = '';
+    document.querySelector('#edit_password').value = '';
+    document.querySelector('#edit_fullname').value = '';
+    document.querySelector('#edit_user_type').selectedIndex = 0;
+
+}
 </script>
 </body>
 </html>

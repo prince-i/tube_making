@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="col s12">
-            <button class="btn green col s12 btn-large" onclick="saveUser()">Save</button>
+            <button class="btn green col s12 btn-large" onclick="saveUser()" id="saveUserBtn">Save</button>
         </div>
     </div>
 </div>

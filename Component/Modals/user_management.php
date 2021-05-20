@@ -17,7 +17,6 @@
         <div class="row" id="user_control">
             <div class="col s12">
                 <button class="btn #607d8b blue-grey" onclick="uncheck_all_user()">Uncheck All</button>
-                <button class="btn #40c4ff light-blue accent-2">Edit</button>
                 <button class="btn #d32f2f red darken-2" onclick="get_to_delete_user()">delete</button>
             </div>
         </div>
