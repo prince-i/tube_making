@@ -17,6 +17,8 @@
                     $partname = $line[1];
                     $qty = $line[2];
                     $qrcode = $line[3];
+
+                    
                     // CHECK DATA
                     $prevQuery = "SELECT id FROM kanban_masterlist WHERE partcode = '$line[0]'";
                     $res = $conn->query($prevQuery);
@@ -41,14 +43,25 @@
                 }
                 
                 fclose($csvFile);
-                echo '<script>
-                        var x = confirm("SUCCESS! # OF ERRORS '.$error.' ");
-                        if(x == true){
-                            location.replace("../Page/admin.php");
-                        }else{
-                            location.replace("../Page/admin.php");
-                        }
-                    </script>';
+               if($error == 0){
+                    echo '<script>
+                    var x = confirm("SUCCESS! # OF ERRORS '.$error.' ");
+                    if(x == true){
+                        location.replace("../Page/admin.php");
+                    }else{
+                        location.replace("../Page/admin.php");
+                    }
+                </script>'; 
+               }else{
+                    echo '<script>
+                    var x = confirm("WITH ERROR! # OF ERRORS '.$error.' ");
+                    if(x == true){
+                        location.replace("../Page/admin.php");
+                    }else{
+                        location.replace("../Page/admin.php");
+                    }
+                </script>'; 
+               }
             }else{
                 echo '<script>
                         var x = confirm("CSV FILE NOT UPLOADED! # OF ERRORS '.$error.' ");

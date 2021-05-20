@@ -445,6 +445,7 @@ const saveUser =()=>{
                 }else if(response == 'save'){
                     swal('User added successfully!','','info');
                     load_users();
+                    clear_add();
                 }else{
                     swal('User failed to add!','','info');
                 }
@@ -488,6 +489,13 @@ const get_to_delete_user =()=>{
     }
 }
 
+
+const clear_add =()=>{
+    document.querySelector('#addUserID').value = '';
+    document.querySelector('#addPassword').value = '';
+    document.querySelector('#addFullname').value = '';
+    document.querySelector('#addUsertype').selectedIndex = 0;
+}
 
 </script>
 </body>
