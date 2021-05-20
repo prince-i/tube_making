@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col s12">
 
-        <form action="../process/import_excel.php" enctype="multipart/form-data" method="POST">
+        <form action="../process/import_excel.php"  enctype="multipart/form-data" method="POST">
             <div class="file-field input-field">
                 <div class="btn">
                     <span>File</span>
@@ -21,6 +21,7 @@
                 </div>
             </div>
         </form>
+
         </div>
     </div>
 

@@ -6,7 +6,6 @@
     include '../Component/Modals/add_masterlist.php';
     include '../Component/Modals/upload_masterlist.php';
     include '../Component/Modals/user_management.php';
-    // include '../process/import_excel.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,6 +167,7 @@
             $('#delPlanBtn').attr('disabled',false);
             $('#delPlanBtn').html('Delete');
             $('.modal').modal('close','#plan_menu_admin');
+            load_plan_list();
            }
         });
     }

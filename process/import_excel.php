@@ -23,23 +23,52 @@
                     if($res->rowCount() > 0){
                         $update = "UPDATE kanban_masterlist SET partname = '$partname', packing_quantity = '$qty' , qr_code ='$qrcode' WHERE partcode ='$partcode'";
                         $stmt = $conn->prepare($update);
-                        $stmt->execute();
+                        if($stmt->execute()){
+                            $error = 0;
+                        }else{
+                            $error = $error + 1;
+                        }
                         
                     }else{
                         $insert = "INSERT INTO kanban_masterlist (`partcode`,`partname`,`packing_quantity`,`qr_code`) VALUES ('$partcode','$partname','$qty','$qrcode')";
                         $stmt = $conn->prepare($insert);
-                        $stmt->execute();
+                        if($stmt->execute()){
+                            $error = 0;
+                        }else{
+                            $error = $error + 1;
+                        }
                     }
                 }
+                
                 fclose($csvFile);
-                $string = '?status=success';
+                echo '<script>
+                        var x = confirm("SUCCESS! # OF ERRORS '.$error.' ");
+                        if(x == true){
+                            location.replace("../Page/admin.php");
+                        }else{
+                            location.replace("../Page/admin.php");
+                        }
+                    </script>';
             }else{
-                $string = '?status=error';
+                echo '<script>
+                        var x = confirm("CSV FILE NOT UPLOADED! # OF ERRORS '.$error.' ");
+                        if(x == true){
+                            location.replace("../Page/admin.php");
+                        }else{
+                            location.replace("../Page/admin.php");
+                        }
+                    </script>';
             }
         }else{
-            $string = '?status=invalid';
+            echo '<script>
+                        var x = confirm("INVALID FILE FORMAT! # OF ERRORS '.$error.' ");
+                        if(x == true){
+                            location.replace("../Page/admin.php");
+                        }else{
+                            location.replace("../Page/admin.php");
+                        }
+                    </script>';
         }
         
     }
-    header("location: ../Page/admin.php".$string);
 ?>
