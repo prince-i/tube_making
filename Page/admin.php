@@ -9,6 +9,7 @@
     include '../Component/Modals/user_management.php';
     include '../Component/Modals/add_user.php';
     include '../Component/Modals/edit_user.php';
+    include '../Component/Modals/modal_history_logs.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +29,7 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="masterlist_admin" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
         <li><a href="#" class="modal-trigger" data-target="manage_user" onclick="load_users()">Manage Users</a></li>
-        <li><a href="">History Logs</a></li>
+        <li><a href="#" data-target="history_logs" class="modal-trigger" onclick="load_history()">History Logs</a></li>
         <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
     </div>
@@ -558,7 +559,25 @@ const clear_edits =()=>{
     document.querySelector('#edit_password').value = '';
     document.querySelector('#edit_fullname').value = '';
     document.querySelector('#edit_user_type').selectedIndex = 0;
+}
 
+const load_history =()=>{
+    var log_from = document.querySelector('#log_from').value;
+    var log_to = document.querySelector('#log_to').value;
+    var history_key = document.querySelector('#keywordHistory').value;
+    $.ajax({
+        url : '../process/admin_function.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'output_history',
+            log_from:log_from,
+            log_to:log_to,
+            history_key:history_key
+        },success:function(response){
+            document.querySelector('#history_data_output').innerHTML = response;
+        }
+    });
 }
 </script>
 </body>

@@ -5,6 +5,7 @@
     include '../Component/Modals/masterlist_view_only.php';
     include '../Component/Modals/detailSequence.php';
     include '../Component/Modals/logout-modal.php';
+    include '../Component/Modals/modal_history_logs.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +24,7 @@
       <a href="#" class="brand-logo"><?=$full_name;?></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="#" data-target="master_view_only" class="modal-trigger" onclick="load_masterlist()">Master List</a></li>
-        <li><a href="">History Logs</a></li>
+        <li><a href="#" data-target="history_logs" class="modal-trigger" onclick="load_history()">History Logs</a></li>
         <li><a href="#" data-target="modal-logout" class="modal-trigger">Logout</a></li>
       </ul>
     </div>
@@ -364,9 +365,26 @@ const get_to_reprint =()=>{
     }else{
         swal('NO ITEM IS SELECTED','','info');
     }
-    
 }
 
+const load_history =()=>{
+    var log_from = document.querySelector('#log_from').value;
+    var log_to = document.querySelector('#log_to').value;
+    var history_key = document.querySelector('#keywordHistory').value;
+    $.ajax({
+        url : '../process/admin_function.php',
+        type: 'POST',
+        cache: false,
+        data:{
+            method: 'output_history',
+            log_from:log_from,
+            log_to:log_to,
+            history_key:history_key
+        },success:function(response){
+            document.querySelector('#history_data_output').innerHTML = response;
+        }
+    });
+}
 </script>
 </body>
 </html>

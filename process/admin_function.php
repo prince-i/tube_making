@@ -130,7 +130,7 @@
                 </td>';
                 echo '<td class="modal-trigger" data-target="editusermodal" onclick="get_data_user(&quot;'.$x['id'].'~!~'.$x['userid'].'~!~'.$x['password'].'~!~'.$x['full_name'].'~!~'.$x['user_type'].'&quot;)" style="cursor:pointer;">'.$x['userid'].
                 '</td>';
-                echo '<td>'.md5($x['password']).
+                echo '<td>'.$x['password'].
                 '</td>';
                 echo '<td>'.$x['full_name'].
                 '</td>';
@@ -200,6 +200,26 @@
             echo 'fail';
         }
     }
+    if($method == 'output_history'){
+        $log_from = $_POST['log_from'];
+        $log_to = $_POST['log_to'];
+        $search = $_POST['history_key'];
+        // SELECT QUERY
+        $sql = "SELECT log_detail,date_log FROM tb_history_logs WHERE date_log >= '$log_from 00:00:00' AND date_log<= '$log_to 23:59:59' AND log_detail LIKE '%$search%'";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $c = 0;
+        if($stmt->rowCount() > 0){
+            foreach($stmt->fetchAll() as $x){
+                $c = $c + 1;
+                echo '<tr>';
+                echo '<td>'.$c.'</td>';
+                echo '<td>'.$x['log_detail'].'</td>';
+                echo '<td>'.$x['date_log'].'</td>';
+                echo '</tr>';
 
-    
+            }
+        }
+    }
+
 ?>

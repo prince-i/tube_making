@@ -13,7 +13,7 @@
     }
 
     if($method == 'create_plan_method'){
-        $partscode = $_POST['partscode'];
+        $partscode = strtoupper($_POST['partscode']);
         $partsname = $_POST['partsname'];
         $length = $_POST['length'];
         $shift = $_POST['shift'];
@@ -56,7 +56,7 @@
            }
            if($x = $plan){
             //    echo 'done';
-            $log = $incharge. ' created a plan with '.$partscode. 'with order code: ' .$order_code;
+            $log = $incharge. ' created a plan for '.$partscode. ' with an order code of ' .$order_code;
             $sql = "INSERT INTO tb_history_logs VALUES ('0','$log','$server_date')";
             $stmt = $conn->prepare($sql);
             $stmt->execute();

@@ -109,11 +109,20 @@
         }
     ?>
    
-    
+    <script src="../Component/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             window.print();
         });
+
+        // function status_print(){
+        //    if(window.matchMedia){
+        //        var mediaQUeryList = window.matchMedia('print');
+        //        mediaQueryList.addListener(function(msql){
+        //         alert($(mediaQueryList).html());
+        //        });
+        //    }
+        // }
     </script>
 
 </body>
