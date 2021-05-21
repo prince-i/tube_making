@@ -33,7 +33,7 @@
     <script src="../jqueryqrcode/jquery.qrcode.min.js"></script>
     
 </head>
-<body>
+<body onafterprint="log_print()">
 <?php
         
         $sql = "SELECT parts_name,parts_code,length,in_charge,order_code,qr_code,plan_code FROM tb_order WHERE order_code ='$ref' AND parts_code = '$parts' AND plan_code = '$plancode'";
@@ -115,15 +115,26 @@
             window.print();
         });
 
-        // function status_print(){
-        //    if(window.matchMedia){
-        //        var mediaQUeryList = window.matchMedia('print');
-        //        mediaQueryList.addListener(function(msql){
-        //         alert($(mediaQueryList).html());
-        //        });
-        //    }
-        // }
+        function log_print(){
+            var partscode = '<?=$parts_code;?>';
+            var order_code = '<?=$ref;?>';
+            var plan_code = '<?=$plancode;?>';
+            var name = '<?=$full_name;?>';
+            $.ajax({
+                url: '../process/log_print.php',
+                type : 'POST',
+                cache: false,
+                data:{
+                    method:'print_kanban',
+                    partscode:partscode,
+                    order_code:order_code,
+                    plan_code:plan_code,
+                    name:name
+                },success:function(response){
+                    console.log(response);
+                }
+            });
+        }
     </script>
-
 </body>
 </html>

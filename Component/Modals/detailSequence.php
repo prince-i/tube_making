@@ -24,6 +24,8 @@
                     <th>LOT NUMBER</th>
                     <th>LENGTH</th>
                     <th>IN CHARGE</th>
+                    <th>PRINT STATUS</th>
+                    <th>LAST PRINT DATE</th>
                 </thead>
                 <tbody id="sequence_data"></tbody>
             </table>

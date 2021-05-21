@@ -29,14 +29,13 @@
     <script src="../jqueryqrcode/jquery.qrcode.min.js"></script>
     
 </head>
-<body>
+<body onafterprint = "log_print()">
 <?php
 
         $idList = $_GET['id'];
         $id = explode(",",$idList);
         $qrID = 0;
         foreach($id as $x){
-           
            $ql = "SELECT plan_code FROM tb_sequence WHERE id = '$x'";
            $stmt = $conn->prepare($ql);
            $stmt->execute();
@@ -119,13 +118,33 @@
     }
 }
 }
-    ?>
-   
-    
+?>
+    <script src="../Component/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
             window.print();
         });
+
+        function log_print(){
+            var id_string = '<?=$idList;?>';
+            var partscode = '<?=$detail_parts_code;?>';
+            var order_code = '<?=$l['order_code'];?>';
+            var incharge = '<?=$detail_inCharge;?>';
+            $.ajax({
+                url: '../process/log_print.php',
+                type: 'POST',
+                cache:false,
+                data:{
+                    method: 'reprint_kanban',
+                    id_string:id_string,
+                    partscode:partscode,
+                    order_code:order_code,
+                    incharge:incharge
+                },success:function(response){
+                    console.log(response);
+                }
+            });
+        }
     </script>
 
 </body>

@@ -130,7 +130,7 @@
             $qty = $o['plan_qty'];
         }
     
-        $query = "SELECT id,order_code,plan_qty,lot_number FROM tb_sequence WHERE order_code ='$orderCode' AND plan_code = '$planCode'";
+        $query = "SELECT id,order_code,plan_qty,lot_number, print_status, last_print_date FROM tb_sequence WHERE order_code ='$orderCode' AND plan_code = '$planCode'";
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
@@ -148,6 +148,8 @@
                 echo '<td>'.$x['order_code'].'-'.$x['lot_number'].'</td>';
                 echo '<td>'.$length.'</td>';
                 echo '<td>'.$pic.'</td>';
+                echo '<td>'.strtoupper($x['print_status']).'</td>';
+                echo '<td>'.$x['last_print_date'].'</td>';
                 echo '</tr>';
             }
         }
