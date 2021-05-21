@@ -55,7 +55,12 @@
                $stmt->execute();
            }
            if($x = $plan){
-               echo 'done';
+            //    echo 'done';
+            $log = $incharge. ' created a plan with '.$partscode. 'with order code: ' .$order_code;
+            $sql = "INSERT INTO tb_history_logs VALUES ('0','$log','$server_date')";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            echo 'done';
            }
        }
      }
@@ -147,4 +152,6 @@
             }
         }
     }
+
+    
 ?>

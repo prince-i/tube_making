@@ -228,10 +228,6 @@ const get_order_code =(param)=>{
     $('#orderPlanCode').val(str[2])
 }
 
-// const printTag =()=>{
-//     var ref = $('#orderCodeReference').val();
-//     window.open('../Forms/tube_making_tag.php?ref='+ref,'Tube Making Tag',"width=1000,height=600");
-// }
 
 const printKanban =()=>{
     var code = $('#orderCodeReference').val();

@@ -119,7 +119,7 @@
         $stmt->execute();
         if($stmt->rowCount() > 0){
             foreach($stmt->fetchALL() as $x){
-                echo '<tr class="modal-trigger" data-target="editusermodal" onclick="get_data_user(&quot;'.$x['id'].'~!~'.$x['userid'].'~!~'.$x['password'].'~!~'.$x['full_name'].'~!~'.$x['user_type'].'&quot;)">';
+                echo '<tr >';
                 echo '<td>
                 <p>
                     <label>
@@ -128,9 +128,9 @@
                     </label>
                 </p>    
                 </td>';
-                echo '<td>'.$x['userid'].
+                echo '<td class="modal-trigger" data-target="editusermodal" onclick="get_data_user(&quot;'.$x['id'].'~!~'.$x['userid'].'~!~'.$x['password'].'~!~'.$x['full_name'].'~!~'.$x['user_type'].'&quot;)" style="cursor:pointer;">'.$x['userid'].
                 '</td>';
-                echo '<td>'.$x['password'].
+                echo '<td>'.md5($x['password']).
                 '</td>';
                 echo '<td>'.$x['full_name'].
                 '</td>';
@@ -200,4 +200,6 @@
             echo 'fail';
         }
     }
+
+    
 ?>
