@@ -175,7 +175,11 @@
             $save = "INSERT INTO tb_users (`userid`,`password`,`full_name`,`user_type`) VALUES ('$userID','$password','$fullname','$usertype')";
             $stmt = $conn->prepare($save);
             if($stmt->execute()){
-                echo 'save';
+                // LOGS
+                $msg = $full_name.' successfully added '.$fullname.' as '.$usertype.' user.';
+                $logQL = "INSERT INTO tb_history_logs (`log_detail`,`date_log`) VALUES ('$msg','$server_date')";
+                $stmt = $conn->prepare($logQL);
+                $stmt->execute();
             }else{
                 echo 'fail';
             }
