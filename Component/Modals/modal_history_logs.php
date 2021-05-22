@@ -43,20 +43,18 @@
 <script>
 function export_logs(table_id, separator = ',') {
     var rows = document.querySelectorAll('table#' + table_id + ' tr');
-    // Construct csv
+    // CONSTRUCT CSV
     var csv = [];
     for (var i = 0; i < rows.length; i++) {
         var row = [], cols = rows[i].querySelectorAll('td, th');
         for (var j = 0; j < cols.length; j++) {
             var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
             data = data.replace(/"/g, '""');
-            // Push escaped string
             row.push('"' + data + '"');
         }
         csv.push(row.join(separator));
     }
     var csv_string = csv.join('\n');
-    // Download it
     var filename = 'TubeMaking_History_Logs'+ '_' + new Date().toLocaleDateString() + '.csv';
     var link = document.createElement('a');
     link.style.display = 'none';

@@ -36,6 +36,7 @@
         $parts_code = $_POST['partsCode'];
         $order_code = $_POST['orderCode'];
         $plan_code = $_POST['planCode'];
+        $name = $_POST['name'];
         // DELETE FROM TB_ORDER
         $delOrder = "DELETE FROM tb_order WHERE parts_code = '$parts_code' AND order_code ='$order_code' AND plan_code = '$plan_code'";
         $stmt = $conn->prepare($delOrder);
@@ -44,6 +45,10 @@
             $delSeq = "DELETE FROM tb_sequence WHERE order_code = '$order_code' AND plan_code='$plan_code'";
             $stmt = $conn->prepare($delSeq);
             if($stmt->execute()){
+                $msg = $name.' deleted a plan with parts code: '.$parts_code. ' and order code: '.$order_code;
+                $sql = "INSERT INTO tb_history_logs (`log_detail`,`date_log`) VALUES ('$msg','$server_date')";
+                $stmt = $conn->prepare($sql);
+                $stmt->execute();
                 echo 'deleted';
             }
         }
