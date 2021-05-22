@@ -25,8 +25,8 @@
             </div>
         </div>
 
-        <div class="col s12 collection" style="min-height:80vh;border:1px solid black;">
-            <table id="history_table">
+        <div class="col s12 collection" style="max-height:80vh;border:1px solid black;overflow:auto;">
+            <table id="history_table" style="word-break:break;">
                 <thead>
                     <th>#</th>
                     <th>Log Detail</th>

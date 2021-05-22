@@ -1,5 +1,4 @@
 <?php
-    
     require '../process/session.php';
     include '../Component/Modals/logout-modal.php';
     include '../Component/Modals/plan_admin_modal.php';
@@ -10,6 +9,12 @@
     include '../Component/Modals/add_user.php';
     include '../Component/Modals/edit_user.php';
     include '../Component/Modals/modal_history_logs.php';
+    
+    if($user_type == 'normal'){
+        session_unset();
+        session_destroy();
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

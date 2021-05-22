@@ -1,5 +1,6 @@
 <?php
     include 'conn.php';
+    require 'session.php';
     $method = $_POST['method'];
     if($method == 'displayPlanList'){
         $from = $_POST['dateFrom'];
@@ -92,6 +93,10 @@
         $sql = "INSERT INTO kanban_masterlist (`partcode`,`partname`,`packing_quantity`,`qr_code`) VALUES ('$partscode','$partsname','$packing','$qr')";
         $stmt = $conn->prepare($sql);
         if($stmt->execute()){
+            $msg = $full_name.' added a new item in kanban masterlist for tube making. Parts code: '.$partscode.' /parts name: '.$partsname.' /packing quantity: '.$packing. ' /QR code: '.$qr;
+            $x = "INSERT INTO tb_history_logs (`log_detail`,`date_log`) VALUES ('$msg','$server_date')";
+            $stmt = $conn->prepare($x);
+            $stmt->execute();
             echo 'success';
         }else{
             echo 'fail';
@@ -111,6 +116,10 @@
         }
         $selectedCount;
         if($selectedCount == 0){
+            $msg = $full_name. ' deleted data from masterlist';
+            $logQL = "INSERT INTO tb_history_logs (`log_detail`,`date_log`) VALUES ('$msg','$server_date')";
+            $stmt = $conn->prepare($logQL);
+            $stmt->execute();
             echo 'done';
         }else{
             echo 'error';
@@ -222,7 +231,6 @@
                 echo '<td>'.$x['log_detail'].'</td>';
                 echo '<td>'.$x['date_log'].'</td>';
                 echo '</tr>';
-
             }
         }
     }
