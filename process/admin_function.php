@@ -189,11 +189,13 @@
     if($method == 'deleteUser'){
         $users = [];
         $users = $_POST['userArray'];
+        // COUNT ALL USERS TO DELETE
         $selectedUser = count($users);
         foreach($users as $x){
            $sql = "DELETE FROM tb_users WHERE id = '$x'";
            $stmt = $conn->prepare($sql);
            if($stmt->execute()){
+            //    EVERY SUCCESSFUL QUERY DEDUCT THE USER COUNT INSIDE THE ARRAY
                $selectedUser = $selectedUser - 1;
            }
         }
