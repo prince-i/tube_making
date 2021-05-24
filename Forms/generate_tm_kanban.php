@@ -90,7 +90,13 @@
             </td>
             <td>
                 <center>
-                    <b style="font-size:30px;"><?=$inCharge;?></b>
+                    <?php
+                        if(strlen($inCharge) > 10){
+                            echo '<b>'.$inCharge.'</b>';
+                        }else{
+                            echo '<b style="font-size:30px;">'.$inCharge.'</b>';
+                        }
+                    ?>
                 </center>
             </td>
             <td>

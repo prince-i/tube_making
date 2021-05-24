@@ -101,8 +101,15 @@
             </td>
             <td>
                 <center>
-                <b style="font-size:30px;">
-                <?=$detail_inCharge;?></b>
+                
+                <?php
+                    if(strlen($detail_inCharge) > 10){
+                        echo '<b>'.$detail_inCharge.'</b>';
+                    }else{
+                        echo '<b style="font-size:30px;">
+                        <?=$detail_inCharge;?></b>';
+                    }
+                ?>
                 </center>
             </td>
             <td>
