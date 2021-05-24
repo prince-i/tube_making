@@ -88,4 +88,7 @@
         }
         
     }
+
+    // KILL CONNECTION
+    $conn = null;
 ?>

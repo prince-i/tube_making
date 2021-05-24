@@ -242,4 +242,7 @@
         }
     }
 
+    // KILL CONNECTION
+    $conn = null;
+
 ?>

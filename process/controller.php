@@ -156,4 +156,6 @@
     }
 
     
+    // KILL CONNECTION
+    $conn = null;
 ?>
