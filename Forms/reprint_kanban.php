@@ -75,26 +75,43 @@
         </colgroup>
         <tbody>
         <tr>
-            <td colspan="2"><b>Parts Code:</b> <?=$detail_parts_code;?></td>
+            <td colspan="2">Parts Code: <b style="font-size:30px;"><?=$detail_parts_code;?></b></td>
             <td rowspan="2">
                <center id="qrcode<?=$qrID;?>" ></center>
             </td>
             <td rowspan="5" class="tubemaking">
-                <span style="writing-mode:vertical-rl;color:white;font-size:18px;">TUBEMAKING</span>
+                <span style="writing-mode:vertical-rl;color:white;font-size:18px;font-weight:bold;">TUBEMAKING</span>
             </td>
         </tr>
         <tr>
-            <td colspan="2"><b>Parts Name:</b> <?=$detail_partsname;?></td>
+            <td colspan="2">Parts Name: <b style="font-size:30px;"><?=$detail_partsname;?></b></td>
         </tr>
         <tr style="height:10px;">
-            <td><b><center>Length</center></b></td>
-            <td><b><center>PIC</center></b></td>
-            <td><b><center>Date</center></b></td>
+            <td><center>Length</center></td>
+            <td><center>PIC</center></td>
+            <td><center>Date</center></td>
         </tr>
         <tr>
-            <td><center><?=$detail_length;?></center></td>
-            <td><center><?=$detail_inCharge;?></center></td>
-            <td><center><?=$server_date_only;?></center></td>
+            <td>
+                <center>
+                <b style="font-size:30px;">
+                <?=$detail_length;?>
+                </b>
+                </center>
+            </td>
+            <td>
+                <center>
+                <b style="font-size:30px;">
+                <?=$detail_inCharge;?></b>
+                </center>
+            </td>
+            <td>
+                <center>
+                <b style="font-size:30px;">
+                <?=$server_date_only;?>
+                </b>
+                </center>
+                </td>
         </tr>
         <tr>
             <td colspan=3>
@@ -108,8 +125,8 @@
             function generate_qr(code){
                 $('#qrcode'+<?=$qrID;?>).qrcode({
                     text:code,
-                    width: 128,
-                    height: 128
+                    width: 140,
+                    height: 140
                 });
             }
         </script>

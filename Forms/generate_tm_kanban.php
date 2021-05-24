@@ -71,7 +71,7 @@
                <center id="qrcode<?=$id;?>" ></center>
             </td>
             <td rowspan="5" class="tubemaking">
-                <span style="writing-mode:vertical-rl;color:white;font-size:18px;">TUBEMAKING</span>
+                <span style="writing-mode:vertical-rl;color:white;font-size:18px;font-weight:bold;">TUBEMAKING</span>
             </td>
         </tr>
         <tr>
@@ -111,8 +111,8 @@
             function generate_qr(code){
                 $('#qrcode'+<?=$id;?>).qrcode({
                     text:code,
-                    width: 128,
-                    height: 128
+                    width: 140,
+                    height: 140
                 });
             }
         </script>
