@@ -348,6 +348,7 @@ const get_masterlist_value =()=>{
         var x = confirm('CONFIRM DELETE. PLEASE CLICK OK!');
         if(x == true){
             // console.log('confirm');
+            $('#checkbox_control button').attr('disabled',true);
             $.ajax({
                 url: '../process/admin_function.php',
                 type: 'POST',
@@ -474,6 +475,7 @@ const get_to_delete_user =()=>{
         var x = confirm("Click OK to confirm deletion!");
         if(x == true){
             // DELETE AJAX
+            $('#user_control button').attr('disabled',true);
             $.ajax({
                 url: '../process/admin_function.php',
                 type: 'POST',

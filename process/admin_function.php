@@ -180,6 +180,7 @@
                 $logQL = "INSERT INTO tb_history_logs (`log_detail`,`date_log`) VALUES ('$msg','$server_date')";
                 $stmt = $conn->prepare($logQL);
                 $stmt->execute();
+                echo 'save';
             }else{
                 echo 'fail';
             }

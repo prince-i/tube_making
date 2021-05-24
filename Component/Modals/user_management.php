@@ -23,7 +23,7 @@
         
     </div>
     <div class="row">
-        <div class="col s12 collection" style="max-height:100vh;overflow:auto;border:1px solid black;">
+        <div class="col s12 collection" style="height:100vh;overflow:auto;border:1px solid black;">
             <table class="centered" id="userMasterlist">
                 <thead>
                     <th>
