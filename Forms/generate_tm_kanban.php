@@ -66,7 +66,7 @@
         </colgroup>
         <tbody>
         <tr>
-            <td colspan="2"><b>Parts Code:</b> <?=$parts_code;?></td>
+            <td colspan="2">Parts Code: <b style="font-size:30px;"><?=$parts_code;?></b></td>
             <td rowspan="2">
                <center id="qrcode<?=$id;?>" ></center>
             </td>
@@ -75,17 +75,29 @@
             </td>
         </tr>
         <tr>
-            <td colspan="2"><b>Parts Name:</b> <?=$partsname;?></td>
+            <td colspan="2">Parts Name: <b style="font-size:30px;"><?=$partsname;?></b></td>
         </tr>
         <tr style="height:10px;">
-            <td><b><center>Length</center></b></td>
-            <td><b><center>PIC</center></b></td>
-            <td><b><center>Date</center></b></td>
+            <td><center>Length</center></td>
+            <td><center>PIC</center></td>
+            <td><center>Date</center></td>
         </tr>
         <tr>
-            <td><center><?=$length;?></center></td>
-            <td><center><?=$inCharge;?></center></td>
-            <td><center><?=$server_date_only;?></center></td>
+            <td>
+                <center>
+                <b style="font-size:30px;"><?=$length;?></b>
+                </center>
+            </td>
+            <td>
+                <center>
+                    <b style="font-size:30px;"><?=$inCharge;?></b>
+                </center>
+            </td>
+            <td>
+                <center>
+                <b style="font-size:30px;"><?=$server_date_only;?></b>
+                </center>
+            </td>
         </tr>
         <tr>
             <td colspan=3>
