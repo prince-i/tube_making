@@ -66,7 +66,14 @@
         </colgroup>
         <tbody>
         <tr>
-            <td colspan="2">Parts Code: <b style="font-size:30px;"><?=$parts_code;?></b></td>
+            <td colspan="">
+                Parts Code: 
+                <b style="font-size:30px;"><?=$parts_code;?></b>
+            </td>
+            <td>  
+                Length:
+                <b style="font-size:30px;"><?=$length;?></b>
+            </td>
             <td rowspan="2">
                <center id="qrcode<?=$id;?>" ></center>
             </td>
@@ -74,18 +81,19 @@
                 <span style="writing-mode:vertical-rl;color:white;font-size:18px;font-weight:bold;">TUBEMAKING</span>
             </td>
         </tr>
-        <tr>
+        <tr style="">
             <td colspan="2">Parts Name: <b style="font-size:30px;"><?=$partsname;?></b></td>
         </tr>
-        <tr style="height:10px;">
-            <td><center>Length</center></td>
-            <td><center>PIC</center></td>
+        <tr style="height:10vh;font-size:15px;">
+            <td><center>Inspector Name</center></td>
+            <td><center>Operator Name</center></td>
             <td><center>Date</center></td>
         </tr>
-        <tr>
+        <tr style="height:35vh;">
             <td>
                 <center>
-                <b style="font-size:30px;"><?=$length;?></b>
+                <!-- <b style="font-size:30px;"><?=$length;?></b> -->
+                
                 </center>
             </td>
             <td>
@@ -105,11 +113,12 @@
                 </center>
             </td>
         </tr>
-        <tr>
-            <td colspan=3>
+        <tr style="height:5vh;">
+            <td colspan="3">
                 <center>Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
             </td>
         </tr>
+      
         </tbody>
         </table>
         <script>
@@ -117,8 +126,8 @@
             function generate_qr(code){
                 $('#qrcode'+<?=$id;?>).qrcode({
                     text:code,
-                    width: 140,
-                    height: 140
+                    width: 150,
+                    height: 150
                 });
             }
         </script>

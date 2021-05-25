@@ -75,7 +75,16 @@
         </colgroup>
         <tbody>
         <tr>
-            <td colspan="2">Parts Code: <b style="font-size:30px;"><?=$detail_parts_code;?></b></td>
+            <td colspan="">
+                Parts Code: 
+                <b style="font-size:30px;"><?=$detail_parts_code;?></b>
+            </td>
+            <td>
+                Length:
+                <b style="font-size:30px;">
+                    <?=$detail_length;?>
+                </b>
+            </td>
             <td rowspan="2">
                <center id="qrcode<?=$qrID;?>" ></center>
             </td>
@@ -86,17 +95,15 @@
         <tr>
             <td colspan="2">Parts Name: <b style="font-size:30px;"><?=$detail_partsname;?></b></td>
         </tr>
-        <tr style="height:10px;">
-            <td><center>Length</center></td>
-            <td><center>PIC</center></td>
+        <tr style="height:10vh;">
+            <td><center>Inspector Name</center></td>
+            <td><center>Operator Name</center></td>
             <td><center>Date</center></td>
         </tr>
-        <tr>
+        <tr style="height:35vh;">
             <td>
                 <center>
-                <b style="font-size:30px;">
-                <?=$detail_length;?>
-                </b>
+                
                 </center>
             </td>
             <td>
@@ -107,7 +114,7 @@
                         echo '<b>'.$detail_inCharge.'</b>';
                     }else{
                         echo '<b style="font-size:30px;">
-                        <?=$detail_inCharge;?></b>';
+                        '.$detail_inCharge.'</b>';
                     }
                 ?>
                 </center>
@@ -120,7 +127,7 @@
                 </center>
                 </td>
         </tr>
-        <tr>
+        <tr style="height:5vh;">
             <td colspan=3>
                 <center>Lot#: <?=$l['order_code']."-".$l['lot_number'];?></center>
             </td>
@@ -132,8 +139,8 @@
             function generate_qr(code){
                 $('#qrcode'+<?=$qrID;?>).qrcode({
                     text:code,
-                    width: 140,
-                    height: 140
+                    width: 150,
+                    height: 150
                 });
             }
         </script>
