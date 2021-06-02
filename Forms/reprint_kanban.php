@@ -1,5 +1,6 @@
 <?php
     include '../process/session.php';
+    clearstatcache();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -153,6 +154,7 @@
     <script src="../Component/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            localStorage.clear();
             window.print();
         });
 

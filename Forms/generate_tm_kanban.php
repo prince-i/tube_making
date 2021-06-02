@@ -3,6 +3,7 @@
     $ref = $_GET['order_code'];
     $parts = $_GET['partscode'];
     $plancode = $_GET['plancode'];
+    clearstatcache();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -139,6 +140,7 @@
     <script src="../Component/jquery.min.js"></script>
     <script>
         $(document).ready(function(){
+            localStorage.clear();
             window.print();
         });
 
