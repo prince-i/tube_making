@@ -2,15 +2,16 @@
     require 'conn.php';
     session_start();
     if(isset($_POST['login_btn'])){
-       $username = trim($_POST['userID']);
-       $pass = trim($_POST['userPass']);
+       $username = $_POST['userID'];
+       $pass = $_POST['userPass'];
        if(empty($username)){
            echo '<b class="red-text"><center>PLEASE ENTER USER ID</center></b>';
        }elseif(empty($pass)){
             echo '<b class="red-text"><center>PLEASE ENTER PASSWORD</center></b>';
        }else{
         //    CHECK IF EXISTS
-        $checkQuery = "SELECT id,user_type FROM tb_users WHERE userid ='$username' AND password = '$pass'";
+        // USE BINARY TO SECURE CASE SENSITIVE
+        $checkQuery = "SELECT id,user_type FROM tb_users WHERE BINARY userid = '$username' AND BINARY password = '$pass'";
         $stmt = $conn->prepare($checkQuery);
         $stmt->execute();
         if($stmt->rowCount() > 0){
