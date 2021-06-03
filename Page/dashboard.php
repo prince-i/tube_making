@@ -178,7 +178,10 @@ const save_plan =()=>{
         swal('Empty Shift!','','info');
     }else if(machine_number == ''){
         swal('Empty Machine Number!','','info');
-    }else if(plan == ''){
+    }else if(setup_number == ''){
+        swal('Empty Setup Number!','','info');
+    }
+    else if(plan == ''){
         swal('Please Enter Plan!','','info');
     }else if(plan <= 0){
         swal('Invalid Plan!','','info');
