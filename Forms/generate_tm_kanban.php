@@ -60,8 +60,8 @@
         <!-- <table style="table-layout: fixed; width: 446px;height:200px;" border="1"> -->
         <table style="height:100%;width:100%;table-layout:fixed;" border="1">
         <colgroup>
-        <col style="width: 173px">
-        <col style="width: 150px">
+        <col style="width: 185px">
+        <col style="width: 125px">
         <col style="width: 130px">
         <col style="width: 28px">
         </colgroup>
@@ -69,11 +69,11 @@
         <tr>
             <td colspan="">
                 Parts Code: 
-                <b style="font-size:30px;"><?=$parts_code;?></b>
+                <b style="font-size:2.5em;"><?=$parts_code;?></b>
             </td>
             <td>  
                 Length:
-                <b style="font-size:30px;"><?=$length;?></b>
+                <b style="font-size:2.5em;"><?=$length;?></b>
             </td>
             <td rowspan="2">
                <center id="qrcode<?=$id;?>" ></center>
@@ -83,9 +83,9 @@
             </td>
         </tr>
         <tr style="">
-            <td colspan="2">Parts Name: <b style="font-size:30px;"><?=$partsname;?></b></td>
+            <td colspan="2">Parts Name: <b style="font-size:2em;"><?=$partsname;?></b></td>
         </tr>
-        <tr style="height:10vh;font-size:15px;">
+        <tr style="height:10vh;font-size:1em;font-weight:   bold;">
             <td><center>Inspector Name</center></td>
             <td><center>Operator Name</center></td>
             <td><center>Date</center></td>
@@ -127,8 +127,8 @@
             function generate_qr(code){
                 $('#qrcode'+<?=$id;?>).qrcode({
                     text:code,
-                    width: 150,
-                    height: 150
+                    width: 165,
+                    height: 165
                 });
             }
         </script>
