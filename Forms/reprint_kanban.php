@@ -130,7 +130,7 @@
         </tr>
         <tr style="height:5vh;">
             <td colspan=3>
-                <center>Lot#: <?=$l['order_code']."-".$l['lot_number'];?></center>
+                <center style="font-size:30px;">Lot#: <?=$l['order_code']."-".$l['lot_number'];?></center>
             </td>
         </tr>
         </tbody>

@@ -116,7 +116,7 @@
         </tr>
         <tr style="height:5vh;">
             <td colspan="3">
-                <center>Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
+                <center style="font-size:30px;">Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
             </td>
         </tr>
       
