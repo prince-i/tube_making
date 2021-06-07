@@ -25,6 +25,10 @@
         .tubemaking{
             background-color:black;
         }
+        @page{
+            /*TOP RIGHT BOTTOM LEFT*/
+            margin:  1in 1.25in 0.1in 0in;
+        }
     </style>
     <script src="../Component/jquery.min.js"></script>
     <script src="../jqueryqrcode/jquery.qrcode.min.js"></script>
