@@ -127,8 +127,14 @@
         </tbody>
         </table>
         <script>
-            generate_qr("<?=$qrcode;?>");
+            // ADDED NEW DYNAMIC QR CODE VALUE COUNT
+            // ADDED KANBAN NUMBER
+            var qr = '<?=$qrcode;?>';
+            var qr_kanban = qr.replace('*','<?=$r['lot_number'];?>');
+            console.log(qr_kanban);
+            generate_qr(qr_kanban);
             function generate_qr(code){
+                // $('#qrcode'+<?=$id;?>).html(code);
                 $('#qrcode'+<?=$id;?>).qrcode({
                     text:code,
                     width: 165,
@@ -145,7 +151,7 @@
     <script>
         $(document).ready(function(){
             localStorage.clear();
-            window.print();
+            // window.print();
         });
 
         function log_print(){
@@ -164,7 +170,7 @@
                     plan_code:plan_code,
                     name:name
                 },success:function(response){
-                    console.log(response);
+                    // console.log(response);
                 }
             });
         }

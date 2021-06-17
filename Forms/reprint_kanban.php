@@ -140,8 +140,13 @@
         </tbody>
         </table>
         <script>
-            generate_qr("<?=$detail_qrCode;?>");
+            // ADDED DYNAMIC KANBAN NUMBER BASED TO PLAN
+            var qr = '<?=$detail_qrCode?>';
+            var qr_kanban = qr.replace('*','<?=$l['lot_number'];?>');
+            console.log(qr_kanban);
+            generate_qr(qr_kanban);
             function generate_qr(code){
+                // $('#qrcode'+<?=$qrID;?>).html(code);
                 $('#qrcode'+<?=$qrID;?>).qrcode({
                     text:code,
                     width: 165,
@@ -159,7 +164,7 @@
     <script>
         $(document).ready(function(){
             localStorage.clear();
-            window.print();
+            // window.print();
         });
 
         function log_print(){
