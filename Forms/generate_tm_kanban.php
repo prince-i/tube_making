@@ -27,7 +27,7 @@
 			border-width: medium;
 		}
         .tubemaking{
-            background-color:black;
+            background-color:white;
         }
         @page{
             /*TOP RIGHT BOTTOM LEFT*/
@@ -83,7 +83,7 @@
                <center id="qrcode<?=$id;?>" ></center>
             </td>
             <td rowspan="5" class="tubemaking">
-                <span style="writing-mode:vertical-rl;color:white;font-size:18px;font-weight:bold;">TUBEMAKING</span>
+                <span style="writing-mode:vertical-rl;color:black;font-size:18px;font-weight:bold;">TUBEMAKING</span>
             </td>
         </tr>
         <tr style="">
@@ -119,8 +119,8 @@
             </td>
         </tr>
         <tr style="height:5vh;">
-            <td colspan="3">
-                <center style="font-size:30px;">Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
+            <td colspan="3" style="background: black;">
+                <center style="font-size:30px;color:white;font-weight:bold;">Lot#: <?=$orderCode."-".$r['lot_number'];?></center>
             </td>
         </tr>
       

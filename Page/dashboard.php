@@ -1,12 +1,4 @@
-<?php
-    require '../process/session.php';
-    include '../Component/Modals/new_plan.php';
-    include '../Component/Modals/plan_modal_menu.php';
-    include '../Component/Modals/masterlist_view_only.php';
-    include '../Component/Modals/detailSequence.php';
-    include '../Component/Modals/logout-modal.php';
-    include '../Component/Modals/modal_history_logs.php';
-?>
+<?php require '../process/session.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +10,15 @@
     <link rel="stylesheet" href="../materialize/css/materialize.min.css">
     <link rel="stylesheet" href="../Component/main.css">
 </head>
+<?php
+    
+    include '../Component/Modals/new_plan.php';
+    include '../Component/Modals/plan_modal_menu.php';
+    include '../Component/Modals/masterlist_view_only.php';
+    include '../Component/Modals/detailSequence.php';
+    include '../Component/Modals/logout-modal.php';
+    include '../Component/Modals/modal_history_logs.php';
+?>
 <body>
 <nav class="#263238 blue-grey darken-4">
     <div class="nav-wrapper">
