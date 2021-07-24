@@ -85,6 +85,7 @@
             <div class="col s12 collection z-depth-1" id="plan_list">
                 <table class="centered" id="planTable">
                     <thead style="font-size:12px;">
+                        <th>#</th>
                         <th>PARTSNAME</th>
                         <th>PARTSCODE</th>
                         <th>LENGTH</th>

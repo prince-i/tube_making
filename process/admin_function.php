@@ -12,8 +12,11 @@
         $stmt = $conn->prepare($qry);
         $stmt->execute();
         if($stmt->rowCount() > 0){
+            $c = 0;
             foreach($stmt->fetchALL() as $x){
+                $c++;
                 echo '<tr style="cursor:pointer;" class="modal-trigger" data-target="plan_menu_admin" onclick="get_plan_del(&quot;'.$x['parts_code'].'~!~'.$x['order_code'].'~!~'.$x['plan_code'].'~!~'.$x['in_charge'].'~!~'.$x['plan_qty'].'~!~'.$x['parts_name'].'&quot;)">';
+                echo '<td>'.$c.'</td>';
                 echo '<td>'.$x['parts_name'].'</td>';
                 echo '<td>'.$x['parts_code'].'</td>';
                 echo '<td>'.$x['length'].'</td>';

@@ -7,10 +7,11 @@
         <div class="col s12">
             <!-- <b>LOT NUMBER SEQUENCE</b> -->
             <button class="btn #263238 blue-grey darken-4" onclick="uncheck_all()">uncheck all</button>
+            <button class="btn #263238 blue-grey darken-4" onclick="export_sequence('sequence_lot_data')">export record</button>
             <button class="btn #263238 blue-grey darken-4 right" onclick="get_to_reprint()">Re-Print</button>
         </div>
         <div class="col s12 collection" style="max-height:100vh;overflow:auto;">
-            <table>
+            <table id="sequence_lot_data">
                 <thead>
                     <th>
                         <p>

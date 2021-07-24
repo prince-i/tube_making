@@ -75,8 +75,11 @@
         $stmt = $conn->prepare($query);
         $stmt->execute();
         if($stmt->rowCount() > 0){
+            $c = 0;
             foreach($stmt->fetchALL() as $x){
+                $c++;
                 echo '<tr style="cursor:pointer;" onclick="get_order_code(&quot;'.$x['order_code'].'~!~'.$x['parts_code'].'~!~'.$x['plan_code'].'&quot;)" class="modal-trigger" data-target="plan_menu">';
+                echo '<td>'.$c.'</td>';
                 echo '<td>'.$x['parts_name'].'</td>';
                 echo '<td>'.$x['parts_code'].'</td>';
                 echo '<td>'.$x['length'].'</td>';
