@@ -151,7 +151,7 @@
     <script>
         $(document).ready(function(){
             localStorage.clear();
-            // window.print();
+            window.print();
         });
 
         function log_print(){
